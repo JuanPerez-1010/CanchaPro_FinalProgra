@@ -16,6 +16,13 @@ public class Canchas {
     private int capacidad_Cancha;
     private float PrecioBase_o_confiTarifa;
     
+   public Canchas(String Codigo_Cancha,String Nombre_Canch,int capacidad_Cancha,float PrecioBase_o_confiTarifa){
+       this.Codigo_Cancha=Codigo_Cancha;
+       this.Nombre_Cancha=Nombre_Cancha;
+       this.PrecioBase_o_confiTarifa=PrecioBase_o_confiTarifa;
+       this.capacidad_Cancha=capacidad_Cancha;
+   }
+   
    
     
     
