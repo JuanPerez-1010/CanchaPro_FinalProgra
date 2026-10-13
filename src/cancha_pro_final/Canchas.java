@@ -23,7 +23,7 @@ public class Canchas {
        this.capacidad_Cancha=capacidad_Cancha;
    }
    
-   
+  
     
     
     
