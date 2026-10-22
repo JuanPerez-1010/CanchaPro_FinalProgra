@@ -63,7 +63,53 @@ public class GestorArchivosCSV {
         return encontrado;
     }
     
+    public String buscarcliente (String Clientes, String busqueda, String nombre){
+    String respuesta = " no enccontrado";
     
+    try {
+      FileReader leerclientes = new FileReader("Clientes.txt");
+      BufferedReader buffcli = new BufferedReader(leerclientes);
+   
+      String temporal=buffcli.readLine();
+      
+       while (temporal!=null){
+        if (temporal.trim().length() > 0){ 
+         String[] datoslinea = temporal.split(",");
+         
+         String CodGuardado = datoslinea[0].trim();
+         String NomGuardado = datoslinea[1].trim();
+         
+         if(busqueda.equals("Buscar por Codigo") && CodGuardado.equalsIgnoreCase(nombre.trim())){
+             respuesta = "Cliente "+nombre+
+             "Código: " + datoslinea[0] + "\n" +
+             "Nombre: " + datoslinea[1] + "\n" +
+             "Correo: " + datoslinea[2] + "\n" +
+             "Teléfono: " + datoslinea[3] + "\n" +
+             "Frecuente: " + datoslinea[4];
+             break;
+         }
+          if(busqueda.equals("Buscar por Nombre") && nombre.toLowerCase().contains(busqueda.trim().toLowerCase())){ /// ESTUDIAR
+             respuesta = "Cliente "+nombre+
+             "Código: " + datoslinea[0] + "\n" +
+             "Nombre: " + datoslinea[1] + "\n" +
+             "Correo: " + datoslinea[2] + "\n" +
+             "Teléfono: " + datoslinea[3] + "\n" +
+             "Frecuente: " + datoslinea[4];
+             break;
+         }
+        }
+        temporal =buffcli.readLine();
+       }
+       
+      buffcli.close();;
+      
+    }
+    catch(IOException e){
+    respuesta ="-- ERROR EL CODIGO ---"; 
+    JOptionPane.showMessageDialog(null, respuesta);
+    }
+    return respuesta;
+    }
     
     
 }

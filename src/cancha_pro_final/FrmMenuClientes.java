@@ -46,6 +46,10 @@ public class FrmMenuClientes extends javax.swing.JFrame {
         ButonAgregarCliente = new javax.swing.JButton();
         PanelBuscarCliente = new javax.swing.JPanel();
         Lbtituloregistro1 = new javax.swing.JLabel();
+        Lbbuscar = new javax.swing.JLabel();
+        Txcodigonombre = new javax.swing.JTextField();
+        Cbxeligibuscarcli = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,6 +94,9 @@ public class FrmMenuClientes extends javax.swing.JFrame {
         frecuentesiono.setText("Cliente Frecuente ");
         frecuentesiono.addActionListener(this::frecuentesionoActionPerformed);
 
+        ButonAgregarCliente.setBackground(new java.awt.Color(255, 255, 255));
+        ButonAgregarCliente.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        ButonAgregarCliente.setForeground(new java.awt.Color(0, 0, 0));
         ButonAgregarCliente.setText("Agregar Cliente ");
         ButonAgregarCliente.addActionListener(this::ButonAgregarClienteActionPerformed);
 
@@ -97,39 +104,37 @@ public class FrmMenuClientes extends javax.swing.JFrame {
         PanelRegristosCliente.setLayout(PanelRegristosClienteLayout);
         PanelRegristosClienteLayout.setHorizontalGroup(
             PanelRegristosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelRegristosClienteLayout.createSequentialGroup()
+            .addGroup(PanelRegristosClienteLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(PanelRegristosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelRegristosClienteLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(PanelRegristosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelRegristosClienteLayout.createSequentialGroup()
-                                .addComponent(Lbcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(38, 38, 38)
-                                .addComponent(LbNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(PanelRegristosClienteLayout.createSequentialGroup()
-                                .addComponent(Txcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Txnombre, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)))
+                        .addComponent(Lbcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(LbNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PanelRegristosClienteLayout.createSequentialGroup()
+                        .addComponent(Txcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(PanelRegristosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(LbNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Txcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(PanelRegristosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelRegristosClienteLayout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(LbTefono, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(PanelRegristosClienteLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Txtelfono, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(29, 29, 29))
-                    .addGroup(PanelRegristosClienteLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(Lbtituloregistro, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, Short.MAX_VALUE)))
+                        .addComponent(Txnombre, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelRegristosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ButonAgregarCliente)
-                    .addComponent(frecuentesiono))
-                .addContainerGap())
+                    .addComponent(LbNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Txcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(PanelRegristosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelRegristosClienteLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(LbTefono, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PanelRegristosClienteLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Txtelfono, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(PanelRegristosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(frecuentesiono)
+                    .addComponent(ButonAgregarCliente))
+                .addGap(10, 10, 10))
+            .addGroup(PanelRegristosClienteLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(Lbtituloregistro, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, Short.MAX_VALUE))
         );
         PanelRegristosClienteLayout.setVerticalGroup(
             PanelRegristosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,21 +157,18 @@ public class FrmMenuClientes extends javax.swing.JFrame {
                             .addComponent(ButonAgregarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Txtelfono, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(PanelRegristosClienteLayout.createSequentialGroup()
-                        .addGroup(PanelRegristosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelRegristosClienteLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(Lbtituloregistro))
-                            .addGroup(PanelRegristosClienteLayout.createSequentialGroup()
-                                .addGap(39, 39, 39)
-                                .addGroup(PanelRegristosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(Lbcodigo)
-                                    .addComponent(LbNombre))
-                                .addGap(6, 6, 6)
-                                .addGroup(PanelRegristosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(Txnombre, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                                    .addComponent(Txcodigo))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(Lbtituloregistro))
+                    .addGroup(PanelRegristosClienteLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addGroup(PanelRegristosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Lbcodigo)
+                            .addComponent(LbNombre))
+                        .addGap(6, 6, 6)
+                        .addGroup(PanelRegristosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Txnombre, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                            .addComponent(Txcodigo))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         PanelBuscarCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 255), 2));
@@ -174,21 +176,59 @@ public class FrmMenuClientes extends javax.swing.JFrame {
         Lbtituloregistro1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         Lbtituloregistro1.setText("BUSCAR CLIENTES ");
 
+        Lbbuscar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Lbbuscar.setText("Ingrese dato del cliente ");
+
+        Txcodigonombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 255), 2));
+
+        Cbxeligibuscarcli.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Cbxeligibuscarcli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar por Codigo", "Buscar por Nombre" }));
+        Cbxeligibuscarcli.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 255)));
+        Cbxeligibuscarcli.addActionListener(this::CbxeligibuscarcliActionPerformed);
+
+        jButton1.setText("jButton1");
+
         javax.swing.GroupLayout PanelBuscarClienteLayout = new javax.swing.GroupLayout(PanelBuscarCliente);
         PanelBuscarCliente.setLayout(PanelBuscarClienteLayout);
         PanelBuscarClienteLayout.setHorizontalGroup(
             PanelBuscarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelBuscarClienteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Lbtituloregistro1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(PanelBuscarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelBuscarClienteLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(Lbbuscar)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(PanelBuscarClienteLayout.createSequentialGroup()
+                        .addComponent(Lbtituloregistro1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBuscarClienteLayout.createSequentialGroup()
+                        .addGroup(PanelBuscarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Txcodigonombre)
+                            .addGroup(PanelBuscarClienteLayout.createSequentialGroup()
+                                .addGap(86, 86, 86)
+                                .addComponent(jButton1)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(56, 56, 56))))
+            .addGroup(PanelBuscarClienteLayout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addComponent(Cbxeligibuscarcli, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         PanelBuscarClienteLayout.setVerticalGroup(
             PanelBuscarClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelBuscarClienteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Lbtituloregistro1)
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Lbbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Txcodigonombre, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Cbxeligibuscarcli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -196,30 +236,35 @@ public class FrmMenuClientes extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(ButonRegrePrincipal)
-                        .addGap(192, 192, 192)
-                        .addComponent(Lbtituloclientes, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(PanelRegristosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(PanelBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(PanelRegristosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(ButonRegrePrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Lbtituloclientes, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(137, 137, 137)))
+                .addComponent(PanelBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(PanelBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PanelBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ButonRegrePrincipal)
-                            .addComponent(Lbtituloclientes, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(ButonRegrePrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 10, Short.MAX_VALUE)
+                                .addComponent(Lbtituloclientes, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(PanelRegristosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(410, Short.MAX_VALUE))
+                .addGap(338, 338, 338))
         );
 
         pack();
@@ -285,6 +330,15 @@ public class FrmMenuClientes extends javax.swing.JFrame {
         
     }//GEN-LAST:event_ButonRegrePrincipalActionPerformed
 
+    private void CbxeligibuscarcliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbxeligibuscarcliActionPerformed
+        String nombre= Txcodigonombre.getText();
+        String busqueda = Txcodigonombre.getSelectedItem().toString();
+        
+        
+        
+        
+    }//GEN-LAST:event_CbxeligibuscarcliActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -313,9 +367,11 @@ public class FrmMenuClientes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButonAgregarCliente;
     private javax.swing.JButton ButonRegrePrincipal;
+    private javax.swing.JComboBox<String> Cbxeligibuscarcli;
     private javax.swing.JLabel LbNombre;
     private javax.swing.JLabel LbNombre1;
     private javax.swing.JLabel LbTefono;
+    private javax.swing.JLabel Lbbuscar;
     private javax.swing.JLabel Lbcodigo;
     private javax.swing.JLabel Lbtituloclientes;
     private javax.swing.JLabel Lbtituloregistro;
@@ -323,9 +379,11 @@ public class FrmMenuClientes extends javax.swing.JFrame {
     private javax.swing.JPanel PanelBuscarCliente;
     private javax.swing.JPanel PanelRegristosCliente;
     private javax.swing.JTextField Txcodigo;
+    private javax.swing.JTextField Txcodigonombre;
     private javax.swing.JTextField Txcorreo;
     private javax.swing.JTextField Txnombre;
     private javax.swing.JTextField Txtelfono;
     private javax.swing.JCheckBox frecuentesiono;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }
