@@ -4,8 +4,11 @@
  */
 package cancha_pro_final;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import javax.swing.JOptionPane;
-
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author PERSONAL
@@ -19,6 +22,8 @@ public class FrmMenuClientes extends javax.swing.JFrame {
      */
     public FrmMenuClientes() {
         initComponents();
+        setLocationRelativeTo(null);
+        cargartablaclientes();
     }
 
     /**
@@ -44,14 +49,20 @@ public class FrmMenuClientes extends javax.swing.JFrame {
         Txtelfono = new javax.swing.JTextField();
         frecuentesiono = new javax.swing.JCheckBox();
         ButonAgregarCliente = new javax.swing.JButton();
+        LbCodigoEjemplo = new javax.swing.JLabel();
         PanelBuscarCliente = new javax.swing.JPanel();
         Lbtituloregistro1 = new javax.swing.JLabel();
         Lbbuscar = new javax.swing.JLabel();
         Txcodigonombre = new javax.swing.JTextField();
         Cbxeligibuscarcli = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        ButonBuscarCliente = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TableClientes = new javax.swing.JTable();
+        ButonEliminar = new javax.swing.JButton();
+        ButonEditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         Lbtituloclientes.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         Lbtituloclientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -100,6 +111,9 @@ public class FrmMenuClientes extends javax.swing.JFrame {
         ButonAgregarCliente.setText("Agregar Cliente ");
         ButonAgregarCliente.addActionListener(this::ButonAgregarClienteActionPerformed);
 
+        LbCodigoEjemplo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        LbCodigoEjemplo.setText("Ejemplo: C001");
+
         javax.swing.GroupLayout PanelRegristosClienteLayout = new javax.swing.GroupLayout(PanelRegristosCliente);
         PanelRegristosCliente.setLayout(PanelRegristosClienteLayout);
         PanelRegristosClienteLayout.setHorizontalGroup(
@@ -132,9 +146,14 @@ public class FrmMenuClientes extends javax.swing.JFrame {
                     .addComponent(ButonAgregarCliente))
                 .addGap(10, 10, 10))
             .addGroup(PanelRegristosClienteLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(Lbtituloregistro, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE))
+                .addGroup(PanelRegristosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelRegristosClienteLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(Lbtituloregistro, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PanelRegristosClienteLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(LbCodigoEjemplo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelRegristosClienteLayout.setVerticalGroup(
             PanelRegristosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,7 +187,9 @@ public class FrmMenuClientes extends javax.swing.JFrame {
                         .addGroup(PanelRegristosClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(Txnombre, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
                             .addComponent(Txcodigo))))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(LbCodigoEjemplo)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         PanelBuscarCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 255), 2));
@@ -179,6 +200,7 @@ public class FrmMenuClientes extends javax.swing.JFrame {
         Lbbuscar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         Lbbuscar.setText("Ingrese dato del cliente ");
 
+        Txcodigonombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         Txcodigonombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 255), 2));
 
         Cbxeligibuscarcli.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -186,7 +208,9 @@ public class FrmMenuClientes extends javax.swing.JFrame {
         Cbxeligibuscarcli.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 255)));
         Cbxeligibuscarcli.addActionListener(this::CbxeligibuscarcliActionPerformed);
 
-        jButton1.setText("jButton1");
+        ButonBuscarCliente.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
+        ButonBuscarCliente.setText("Buscar");
+        ButonBuscarCliente.addActionListener(this::ButonBuscarClienteActionPerformed);
 
         javax.swing.GroupLayout PanelBuscarClienteLayout = new javax.swing.GroupLayout(PanelBuscarCliente);
         PanelBuscarCliente.setLayout(PanelBuscarClienteLayout);
@@ -207,7 +231,7 @@ public class FrmMenuClientes extends javax.swing.JFrame {
                             .addComponent(Txcodigonombre)
                             .addGroup(PanelBuscarClienteLayout.createSequentialGroup()
                                 .addGap(86, 86, 86)
-                                .addComponent(jButton1)
+                                .addComponent(ButonBuscarCliente)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(56, 56, 56))))
             .addGroup(PanelBuscarClienteLayout.createSequentialGroup()
@@ -227,15 +251,31 @@ public class FrmMenuClientes extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Cbxeligibuscarcli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addComponent(jButton1)
+                .addComponent(ButonBuscarCliente)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        TableClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "Nombre", "Correo", "Tefono", "Cliente Frecuente"
+            }
+        ));
+        jScrollPane1.setViewportView(TableClientes);
+
+        ButonEliminar.setText("Eliminar");
+        ButonEliminar.addActionListener(this::ButonEliminarActionPerformed);
+
+        ButonEditar.setText("Editar");
+        ButonEditar.addActionListener(this::ButonEditarActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -249,6 +289,17 @@ public class FrmMenuClientes extends javax.swing.JFrame {
                         .addGap(137, 137, 137)))
                 .addComponent(PanelBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 832, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(ButonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(ButonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,16 +311,53 @@ public class FrmMenuClientes extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ButonRegrePrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 10, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(Lbtituloclientes, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(PanelRegristosCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(338, 338, 338))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(ButonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(ButonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(189, 189, 189))))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+   public void cargartablaclientes (){
+      DefaultTableModel modelo =  (DefaultTableModel) TableClientes.getModel();
+      modelo.setRowCount(0);
+        
+       try {
+      FileReader leerclientes = new FileReader("Clientes.txt");
+      BufferedReader buffcli = new BufferedReader(leerclientes);
+   
+      String temporal=buffcli.readLine();
+      
+       while (temporal!=null){
+        if (temporal.trim().length() > 0){ 
+        String[] datoslinea = temporal.split(",");
+            
+        modelo.addRow(datoslinea);
+    
+        }
+        temporal =buffcli.readLine();
+  
+       }
+       leerclientes.close();
+       buffcli.close();
+       }catch(Exception e){
+       
+       }
+    }
+    
     private void frecuentesionoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_frecuentesionoActionPerformed
 
 
@@ -285,7 +373,7 @@ public class FrmMenuClientes extends javax.swing.JFrame {
         String correo = Txcorreo.getText();
         String telefono = Txtelfono.getText();
         
-        GestorArchivosCSV buscar = new GestorArchivosCSV();
+        Clientes buscar = new Clientes();
         
         boolean existe = buscar.codigorepetido("Clientes.txt",codigo);
         
@@ -317,6 +405,8 @@ public class FrmMenuClientes extends javax.swing.JFrame {
         Txcorreo.setText(" ");
         Txtelfono.setText(" ");
         frecuentesiono.setSelected(false);
+        
+         cargartablaclientes();
         }
     }//GEN-LAST:event_ButonAgregarClienteActionPerformed
 
@@ -325,19 +415,70 @@ public class FrmMenuClientes extends javax.swing.JFrame {
         inicio.setVisible(true);
         
          this.dispose();
-        
-        
-        
+
     }//GEN-LAST:event_ButonRegrePrincipalActionPerformed
 
     private void CbxeligibuscarcliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbxeligibuscarcliActionPerformed
-        String nombre= Txcodigonombre.getText();
-        String busqueda = Txcodigonombre.getSelectedItem().toString();
-        
-        
-        
-        
+      
     }//GEN-LAST:event_CbxeligibuscarcliActionPerformed
+
+    private void ButonBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButonBuscarClienteActionPerformed
+        String nombre= Txcodigonombre.getText();
+        String busqueda = Cbxeligibuscarcli.getSelectedItem().toString();
+        
+        Clientes gestor = new Clientes ();
+        
+        String respuesta=gestor.buscarcliente("Clientes.txt", busqueda, nombre);
+        
+        JOptionPane.showMessageDialog(null, respuesta);     
+    }//GEN-LAST:event_ButonBuscarClienteActionPerformed
+
+    private void ButonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButonEliminarActionPerformed
+        int fila = TableClientes.getSelectedRow();
+        
+        if(fila ==-1){
+         JOptionPane.showMessageDialog(this, "Seleccione un Cliente en pantalla.");
+         return ;
+        }
+        int respuesta = JOptionPane.showConfirmDialog(this,"Esta seguro de eliminar al cliente ");
+        if(respuesta  ==0){
+        
+        String cod = TableClientes.getValueAt(fila, 0).toString();
+        
+        Clientes eliminar = new Clientes ();
+        eliminar.eliminarclientes(cod);
+        cargartablaclientes();
+        JOptionPane.showMessageDialog(this, "A sido eliminado");
+        
+        }
+    }//GEN-LAST:event_ButonEliminarActionPerformed
+
+    private void ButonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButonEditarActionPerformed
+       int fila = TableClientes.getSelectedRow();
+        
+        if(fila ==-1){
+         JOptionPane.showMessageDialog(this, "Seleccione un Cliente en pantalla.");
+         return ;
+        }
+        
+         String codigo = TableClientes.getValueAt(fila, 0).toString();        
+         String nombre = TableClientes.getValueAt(fila, 1).toString();       
+         String correo = TableClientes.getValueAt(fila, 2).toString();        
+         String telefono = TableClientes.getValueAt(fila, 3).toString();
+         String frecuente = TableClientes.getValueAt(fila, 4).toString();
+         
+         Txcodigo.setText(codigo);
+         Txcodigonombre.setText(codigo);
+         Txcorreo.setText(codigo);
+         Txtelfono.setText(telefono);
+         
+         if(frecuente.equalsIgnoreCase("Si")){
+             frecuentesiono.setSelected(true);
+           }
+         else{
+             frecuentesiono.setSelected(false);
+         } 
+    }//GEN-LAST:event_ButonEditarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -366,8 +507,12 @@ public class FrmMenuClientes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButonAgregarCliente;
+    private javax.swing.JButton ButonBuscarCliente;
+    private javax.swing.JButton ButonEditar;
+    private javax.swing.JButton ButonEliminar;
     private javax.swing.JButton ButonRegrePrincipal;
     private javax.swing.JComboBox<String> Cbxeligibuscarcli;
+    private javax.swing.JLabel LbCodigoEjemplo;
     private javax.swing.JLabel LbNombre;
     private javax.swing.JLabel LbNombre1;
     private javax.swing.JLabel LbTefono;
@@ -378,12 +523,13 @@ public class FrmMenuClientes extends javax.swing.JFrame {
     private javax.swing.JLabel Lbtituloregistro1;
     private javax.swing.JPanel PanelBuscarCliente;
     private javax.swing.JPanel PanelRegristosCliente;
+    private javax.swing.JTable TableClientes;
     private javax.swing.JTextField Txcodigo;
     private javax.swing.JTextField Txcodigonombre;
     private javax.swing.JTextField Txcorreo;
     private javax.swing.JTextField Txnombre;
     private javax.swing.JTextField Txtelfono;
     private javax.swing.JCheckBox frecuentesiono;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
