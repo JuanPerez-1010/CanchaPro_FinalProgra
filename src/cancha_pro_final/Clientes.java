@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class Clientes  {
 
@@ -46,8 +47,9 @@ public class Clientes  {
         return encontrado;
     }
     
-    public String buscarcliente (String Clientes, String busqueda, String nombre){
-    String respuesta = " no enccontrado";
+    public void buscarcliente (DefaultTableModel modelo, String busqueda, String nombre){
+    
+        modelo.setRowCount(0); 
     
     try {
         FileReader leerclientes = new FileReader("Clientes.txt");
@@ -57,19 +59,20 @@ public class Clientes  {
 
          while (temporal!=null){
           if (temporal.trim().length() > 0){ 
-         String[] datoslinea = temporal.split(",");
-         
-         String CodGuardado = datoslinea[0].trim();
-         String NomGuardado = datoslinea[1].trim();
-         
-         if(busqueda.equals("Buscar por Codigo") && CodGuardado.equalsIgnoreCase(nombre.trim())){
-             respuesta = "Cliente \n"+"Codigo: " + datoslinea[0] + "\n" +"Nombre: " + datoslinea[1] + "\n" + "Correo: " + datoslinea[2] + "\n" +"Teléfono: " + datoslinea[3] + "\n" +  "Frecuente: " + datoslinea[4];
-               break; 
-         }
-          if(busqueda.equals("Buscar por Nombre") && NomGuardado.toLowerCase().contains(nombre.trim().toLowerCase())==true){ /// ESTUDIAR
-             respuesta = "Cliente \n"+ "Codigo: " + datoslinea[0] + "\n" +"Nombre: " + datoslinea[1] + "\n" + "Correo: " + datoslinea[2] + "\n" +"Teléfono: " + datoslinea[3] + "\n" +  "Frecuente: " + datoslinea[4];
-               break; 
-         }
+        
+              String[] datoslinea = temporal.split(",");
+              
+              
+   
+         if(busqueda.equals("Buscar por Codigo")){
+              if (datoslinea[0].toLowerCase().contains(busqueda.toLowerCase())){
+                  modelo.addRow(datoslinea);
+              }   }
+         else if(busqueda.equals("Buscar por Nombre") ){
+                if (datoslinea[1].toLowerCase().contains(busqueda.toLowerCase())){
+                   modelo.addRow(datoslinea);
+              }   }
+
         }
         temporal =buffcli.readLine();
        }
@@ -77,11 +80,10 @@ public class Clientes  {
       buffcli.close();;
       
     }
-    catch(IOException e){
-    respuesta ="-- ERROR EL CODIGO ---"; 
-    JOptionPane.showMessageDialog(null, respuesta);
+    catch(IOException e){ 
+    JOptionPane.showMessageDialog(null, " - Error en la busqueda");
     }
-    return respuesta;
+    
     }
     
    public void eliminarclientes( String CodiEliminar ){
@@ -113,7 +115,7 @@ public class Clientes  {
        
          }
  
-   public void actulizarcliente(String ncodigo, String nnombre, String ncorreo, String ntelefono,String nfrecuencia){
+   public void actulizarcliente(String codigo, String nnombre, String ncorreo, String ntelefono,String nfrecuencia){
  
     try{
         FileReader leerclientes = new FileReader("Clientes.txt");
@@ -126,21 +128,33 @@ public class Clientes  {
           if (temporal.trim().length() > 0){ 
            String[] datoslinea = temporal.split(",");
    
-            if (datoslinea[0].trim().equalsIgnoreCase(ncodigo.trim())){
-             
-                // me quede aqui
-          }
-            
+            if (datoslinea[0].trim().equalsIgnoreCase(codigo.trim())){
+             codinuevo = codinuevo + codigo + ","+nnombre+","+ncorreo+","+ntelefono+","+nfrecuencia+"\n";
+          }else{
+            codinuevo=codinuevo +temporal+"\n";
                 }
+                }
+          temporal =buffcli.readLine();
              }
+         leerclientes.close();
+         buffcli.close();
+         
+         FileWriter reescribir = new FileWriter("Clientes.txt");
+         reescribir.write(codinuevo);
+         reescribir.close();
          }
           catch(IOException e){ 
-       
+        JOptionPane.showMessageDialog(null, "Error al Actulizar ");
         }
-   
-   
-   
          }
+   
+   
+   
+   
+   
+   
+   
+   
 }
          
    
