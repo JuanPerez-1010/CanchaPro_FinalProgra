@@ -15,6 +15,14 @@ public class Clientes  {
 
         String nombre;
 
+   
+        
+        
+        
+        
+        
+        
+        
     public boolean codigorepetido (String Clientes, String codigobuscar){
         boolean encontrado = false;
         try{
@@ -65,13 +73,16 @@ public class Clientes  {
               
    
          if(busqueda.equals("Buscar por Codigo")){
-              if (datoslinea[0].toLowerCase().contains(busqueda.toLowerCase())){
+              if (datoslinea[0].toLowerCase().contains(nombre.toLowerCase())){
                   modelo.addRow(datoslinea);
               }   }
          else if(busqueda.equals("Buscar por Nombre") ){
-                if (datoslinea[1].toLowerCase().contains(busqueda.toLowerCase())){
+                if (datoslinea[1].toLowerCase().contains(nombre.toLowerCase())){
                    modelo.addRow(datoslinea);
               }   }
+         else{
+             JOptionPane.showMessageDialog(null, "Cliente aun no registrado");
+         }
 
         }
         temporal =buffcli.readLine();
