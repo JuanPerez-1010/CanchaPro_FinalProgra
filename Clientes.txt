@@ -1,0 +1,13 @@
+C001,Juan Antonio Perez,juan@gmail.com,45698757,Si
+C002,julio Rene,rene@gmail.com,47874849,No
+C003,Antonio Perez,julio@hotmail.com,14568878,Si
+C004,Mauro Antonio,mauro@gmailcom,12469789,Si
+C005,Cesar de la cruz, cruz@gmail.com,14568458,No
+C006,Daniel Melgar,melgar@hotmail.com,14569878,Si
+C007,Andres Grijalva,rosio@gmail.com,146569879,No
+C008,Rosi de las Barreras, barreras@gmail.com,14569875,No
+C009,Yanira de Leon, yanira@conexionvirtual.net,55171211,Si
+C010,Emilza Merica,merida@gmail.com,14568798,No
+C011,Elida Juarez, juarez@gmail.com,14569872,Si
+C012,cristina Lacan,,14569878,Si
+C013,Marisol De Leon,leon@gmail.com,145698789,Si

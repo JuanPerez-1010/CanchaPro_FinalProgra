@@ -55,46 +55,28 @@ public class Clientes  {
         return encontrado;
     }
     
-    public void buscarcliente (DefaultTableModel modelo, String busqueda, String nombre){
+    public void buscarcliente (javax.swing.JTable tabla, String busqueda, String nombre){
     
-        modelo.setRowCount(0); 
-    
-    try {
-        FileReader leerclientes = new FileReader("Clientes.txt");
-        BufferedReader buffcli = new BufferedReader(leerclientes);
-
-        String temporal=buffcli.readLine();
-
-         while (temporal!=null){
-          if (temporal.trim().length() > 0){ 
-        
-              String[] datoslinea = temporal.split(",");
-              
-              
-   
-         if(busqueda.equals("Buscar por Codigo")){
-              if (datoslinea[0].toLowerCase().contains(nombre.toLowerCase())){
-                  modelo.addRow(datoslinea);
-              }   }
-         else if(busqueda.equals("Buscar por Nombre") ){
-                if (datoslinea[1].toLowerCase().contains(nombre.toLowerCase())){
-                   modelo.addRow(datoslinea);
-              }   }
-         else{
-             JOptionPane.showMessageDialog(null, "Cliente aun no registrado");
-         }
-
-        }
-        temporal =buffcli.readLine();
-       }
+        boolean encontrado = false;
+        String textoBuscar = nombre.toLowerCase().trim();
        
-      buffcli.close();;
-      
+       for (int i = 0; i < tabla.getRowCount(); i++) {
+        String datoCelda = ""; 
+        
+        if (busqueda.equals("Buscar por Codigo")) {
+            datoCelda = tabla.getValueAt(i, 0).toString().toLowerCase(); // Columna 0: Código
+        } else if (busqueda.equals("Buscar por Nombre")) {
+            datoCelda = tabla.getValueAt(i, 1).toString().toLowerCase(); // Columna 1: Nombre
+        }
+        if (datoCelda.contains(textoBuscar)) {
+        tabla.setRowSelectionInterval(i, i); 
+            encontrado = true;
+            break;
+        }
     }
-    catch(IOException e){ 
-    JOptionPane.showMessageDialog(null, " - Error en la busqueda");
+       if (!encontrado) {
+        JOptionPane.showMessageDialog(null, "Cliente no encontrado en la tabla.");
     }
-    
     }
     
    public void eliminarclientes( String CodiEliminar ){
