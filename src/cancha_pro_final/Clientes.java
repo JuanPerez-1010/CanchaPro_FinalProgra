@@ -18,42 +18,55 @@ public class Clientes  {
    
         
         
-        
-        
-        
-        
-        
-    public boolean codigorepetido (String Clientes, String codigobuscar){
-        boolean encontrado = false;
-        try{
-        FileReader leerclientes = new FileReader("Clientes.txt");
-        BufferedReader buffcli = new BufferedReader(leerclientes);
-        
-        String temporal;
-        temporal = buffcli.readLine();
-        
-        while (temporal!=null){
-            
-        if (temporal.trim().length() > 0){    
-        String[] datosDeLaLinea = temporal.split(",");
-        String CodGuardado = datosDeLaLinea[0].trim();
-        
-        if(CodGuardado.equalsIgnoreCase(codigobuscar.trim()) == true){
-            encontrado = true;
-           break;
+        public void eliminarcliente (javax.swing.JTable tabla, int fila){
+            DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+            modelo.removeRow(fila);
         }
         
+    public String generarSiguienteCodigo(javax.swing.JTable tabla) {
+        int maximo = 0;
+        try {
+            FileReader leer = new FileReader("Clientes.txt");
+            BufferedReader buff = new BufferedReader(leer);
+            String linea = buff.readLine();
+
+             while (linea != null) {
+              if (linea.trim().length() > 0) {
+                String[] datos = linea.split(",");
+               String numeroTexto = datos[0].trim().replace("C", "");
+                 int numero = Integer.parseInt(numeroTexto);
+
+                 if (numero > maximo) {
+                    maximo = numero;
+                    }
+                }
+                linea = buff.readLine();
+            }
+            buff.close();
+            leer.close();
+             } catch (Exception e) {
+             }
+            for (int i = 0; i < tabla.getRowCount(); i++) {
+            try {
+                String codTabla = tabla.getValueAt(i, 0).toString().trim().replace("C", "");
+                int numTabla = Integer.parseInt(codTabla);
+
+                if (numTabla > maximo) {
+                    maximo = numTabla;
+                }
+            } catch (Exception e) {
+            }
+            }
+        int siguiente = maximo + 1;
+        if (siguiente < 10) {
+            return "C00" + siguiente;
+        } else if (siguiente < 100) {
+            return "C0" + siguiente;
+        } else {
+            return "C" + siguiente;
         }
-        temporal = buffcli.readLine();
-        }
-        buffcli.close();
-        
-        }
-        catch(IOException e){
-           encontrado = false; 
-        }
-        return encontrado;
     }
+
     
     public void buscarcliente (javax.swing.JTable tabla, String busqueda, String nombre){
     

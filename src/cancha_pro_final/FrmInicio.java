@@ -46,6 +46,7 @@ public class FrmInicio extends javax.swing.JFrame {
         ButonMenuClientes.addActionListener(this::ButonMenuClientesActionPerformed);
 
         ButonCanchas.setText(" Menu Canchas");
+        ButonCanchas.addActionListener(this::ButonCanchasActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,6 +87,12 @@ public class FrmInicio extends javax.swing.JFrame {
         
         this.dispose();
     }//GEN-LAST:event_ButonMenuClientesActionPerformed
+
+    private void ButonCanchasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButonCanchasActionPerformed
+        FrmMenuCanchas canchas = new FrmMenuCanchas();
+        canchas.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ButonCanchasActionPerformed
 
     /**
      * @param args the command line arguments
