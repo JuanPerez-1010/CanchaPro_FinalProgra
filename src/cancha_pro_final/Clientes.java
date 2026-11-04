@@ -13,14 +13,48 @@ import javax.swing.table.DefaultTableModel;
 
 public class Clientes  {
 
-        String nombre;
+    private String codigo;
+    private String nombre;
+    private String correo;
+    private String telefono;
+    private String frecuente;
+    private String fechaRegistro;
+    
+    public Clientes (){}
 
-   
-        
-        
-        public void eliminarcliente (javax.swing.JTable tabla, int fila){
-            DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-            modelo.removeRow(fila);
+   public Clientes(String codigo, String nombre, String correo, String telefono, String frecuente, String fechaRegistro){
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.correo = correo;
+        this.telefono = telefono;
+        this.frecuente = frecuente;
+        this.fechaRegistro = fechaRegistro;
+    }
+    public Object[] cliente() {
+        return new Object[]{codigo, nombre, correo, telefono, frecuente, fechaRegistro};
+    }  
+    public String getCodigo(){ 
+    return codigo; 
+    }
+    public String getNombre(){ 
+    return nombre; 
+    }
+    public String getCorreo(){ 
+    return correo; 
+    }
+    public String getTelefono(){
+    return telefono; 
+    }
+    public String getFrecuente(){ 
+    return frecuente; 
+    }
+    public String getFechaRegistro(){
+    return fechaRegistro; }
+    
+    
+    public void eliminarcliente (javax.swing.JTable tabla, int fila){
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        modelo.removeRow(fila);
         }
         
     public String generarSiguienteCodigo(javax.swing.JTable tabla) {
@@ -154,14 +188,13 @@ public class Clientes  {
         }
          }
    
-   
-   
-   
-   
-   
-   
-   
 }
+  
+   
+   
+   
+   
+
          
    
 
