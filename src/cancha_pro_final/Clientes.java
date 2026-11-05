@@ -31,7 +31,7 @@ public class Clientes  {
         this.fechaRegistro = fechaRegistro;
     }
     public Object[] cliente() {
-        return new Object[]{codigo, nombre, correo, telefono, frecuente, fechaRegistro};
+     return new Object[]{codigo, nombre, correo, telefono, frecuente, fechaRegistro};
     }  
     public String getCodigo(){ 
     return codigo; 
@@ -63,13 +63,11 @@ public class Clientes  {
             FileReader leer = new FileReader("Clientes.txt");
             BufferedReader buff = new BufferedReader(leer);
             String linea = buff.readLine();
-
              while (linea != null) {
               if (linea.trim().length() > 0) {
                 String[] datos = linea.split(",");
                String numeroTexto = datos[0].trim().replace("C", "");
                  int numero = Integer.parseInt(numeroTexto);
-
                  if (numero > maximo) {
                     maximo = numero;
                     }

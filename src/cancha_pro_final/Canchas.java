@@ -4,6 +4,9 @@
  */
 package cancha_pro_final;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 
 
 /**
@@ -11,23 +14,80 @@ package cancha_pro_final;
  * @author PERSONAL
  */
 public class Canchas {
-    private String Codigo_Cancha;
-    private String Nombre_Cancha;
-    private int capacidad_Cancha;
-    private float PrecioBase_o_confiTarifa;
+    private String CodidoC;
+    private String NombreC;
+    private String CapacidadC;
+    private String PrecioBase;
     
-   public Canchas(String Codigo_Cancha,String Nombre_Canch,int capacidad_Cancha,float PrecioBase_o_confiTarifa){
-       this.Codigo_Cancha=Codigo_Cancha;
-       this.Nombre_Cancha=Nombre_Cancha;
-       this.PrecioBase_o_confiTarifa=PrecioBase_o_confiTarifa;
-       this.capacidad_Cancha=capacidad_Cancha;
+    
+    public Canchas (){}
+    
+   public Canchas(String CodidoC,String NombreC,String CapacidadC,String PrecioBase){
+       this.CodidoC=CodidoC;
+       this.NombreC=NombreC;
+       this.CapacidadC=CapacidadC;
+       this.PrecioBase=PrecioBase;
    }
+     
+   public String generasiguicod(javax.swing.JTable tabla) {
+        int maximo = 0;
+        try {
+            FileReader leer = new FileReader("Canchas.txt");
+            BufferedReader buff = new BufferedReader(leer);
+            String linea = buff.readLine();
+
+             while (linea != null) {
+              if (linea.trim().length() > 0) {
+                String[] datos = linea.split(",");
+               String numeroTexto = datos[0].trim().replace("C", "");
+                 int numero = Integer.parseInt(numeroTexto);
+
+                 if (numero > maximo) {
+                    maximo = numero;
+                    }
+                }
+                linea = buff.readLine();
+            }
+            buff.close();
+            leer.close();
+             } catch (Exception e) {
+             }
+            for (int i = 0; i < tabla.getRowCount(); i++) {
+            try {
+                String codTabla = tabla.getValueAt(i, 0).toString().trim().replace("C", "");
+                int numTabla = Integer.parseInt(codTabla);
+
+                if (numTabla > maximo) {
+                    maximo = numTabla;
+                }
+            } catch (Exception e) {
+            }
+            }
+        int siguiente = maximo + 1;
+        if (siguiente < 10) {
+            return "C00" + siguiente;
+        } else if (siguiente < 100) {
+            return "C0" + siguiente;
+        } else {
+            return "C" + siguiente;
+        }
+    }
    
   
     
     
     
     
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
 }
 
 

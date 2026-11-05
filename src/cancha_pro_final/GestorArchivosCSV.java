@@ -31,6 +31,17 @@ public class GestorArchivosCSV {
         }   
     }
     
-   
+   public void GuardarCanchas(String datos){
+        try{
+        FileWriter abrircanchas = new FileWriter ("Canchas.txt",true);
+        BufferedWriter buffercanchas = new BufferedWriter (abrircanchas);  
+        buffercanchas.write(datos);
+        buffercanchas.newLine();
+        buffercanchas.close();
+        }
+        catch(IOException e){
+        JOptionPane.showMessageDialog (null,"-- Error en el Archivo de Canchas ----");
+        } 
+   }
     
 }
