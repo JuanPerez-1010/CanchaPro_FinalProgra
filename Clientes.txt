@@ -16,3 +16,4 @@ C015,luz jerasd,,135654654,No,04/11/2026
 C016,Jorge solinos,jorge@gmail.com,47896568,Si,04/11/2026
 C017,Julio Santis,santis@gmail.com,14569875,Si,04/11/2026
 C018,Luis cifuentes, ,14569875,Si,04/11/2026
+C019,Diego Alejandro,ale@gmacil.com,13465465,Si,08/11/2026
