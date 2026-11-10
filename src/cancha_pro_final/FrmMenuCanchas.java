@@ -28,11 +28,17 @@ public class FrmMenuCanchas extends javax.swing.JFrame {
     
     public FrmMenuCanchas() {
         initComponents();
+        cargartablacanchas(); 
+       generarcodigo();
+    }
+    public void generarcodigo() {
+    Canchas can = new Canchas();
+    String codigo = can.generasiguicod(tablecanchas);
+    Txtcodigo.setText(codigo);
     }
     
-    
     public void cargartablacanchas() {
-    DefaultTableModel modelo = (DefaultTableModel) TableCanchas.getModel();
+    DefaultTableModel modelo = (DefaultTableModel) tablecanchas.getModel();
     modelo.setRowCount(0);
 
     try {
@@ -51,28 +57,12 @@ public class FrmMenuCanchas extends javax.swing.JFrame {
         buff.close();
         leer.close();
     } catch (Exception e) {
-        // Ignora o muestra advertencia si el archivo aún no existe
     }
-
     generarcodigo();
-}
-    
-    
-   public void generarcodigo() {
-    int fila = TableCanchas.getRowCount();
-    int aux = fila + 1;
-    String codigo = "";
-
-    if (aux < 10) {
-        codigo = "C00" + aux;
-    } else if (aux < 100) {
-        codigo = "C0" + aux;
-    } else {
-        codigo = "C" + aux;
     }
-
-    Txcodigo.setText(codigo);
-}
+    
+    
+   
     
     
     
@@ -89,29 +79,33 @@ public class FrmMenuCanchas extends javax.swing.JFrame {
 
         ButonRegresar = new javax.swing.JButton();
         Paneltitu = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        PanelCanchas = new javax.swing.JPanel();
         datoscanchas = new javax.swing.JLabel();
-        TxtNombre = new javax.swing.JLabel();
-        TxlHorario = new javax.swing.JTextField();
-        txtHorario = new javax.swing.JLabel();
-        TxtTipo1 = new javax.swing.JLabel();
-        TxLNombre1 = new javax.swing.JTextField();
-        TxtTipo = new javax.swing.JLabel();
-        TxtTipo3 = new javax.swing.JLabel();
-        TxtPrecio = new javax.swing.JLabel();
-        TxlPrecio = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        TxtEstado = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        LblCodigo = new javax.swing.JLabel();
+        TxtHorario = new javax.swing.JTextField();
+        lblHorario = new javax.swing.JLabel();
+        LblNombre = new javax.swing.JLabel();
+        TxLNombre = new javax.swing.JTextField();
+        lblTipo = new javax.swing.JLabel();
+        lblcapacidad = new javax.swing.JLabel();
+        lblPrecio = new javax.swing.JLabel();
+        TxtPrecio = new javax.swing.JTextField();
+        ComboTipo = new javax.swing.JComboBox<>();
+        ComboCapacidad = new javax.swing.JComboBox<>();
+        lblEstado = new javax.swing.JLabel();
+        ComboEstado = new javax.swing.JComboBox<>();
         ButonAgregar = new javax.swing.JButton();
-        Txcodigo = new javax.swing.JTextField();
+        Txtcodigo = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TableCanchas = new javax.swing.JTable();
+        tablecanchas = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMinimumSize(new java.awt.Dimension(1100, 540));
+        setPreferredSize(new java.awt.Dimension(1100, 700));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ButonRegresar.setBackground(new java.awt.Color(255, 255, 255));
@@ -122,23 +116,34 @@ public class FrmMenuCanchas extends javax.swing.JFrame {
         ButonRegresar.addActionListener(this::ButonRegresarActionPerformed);
         getContentPane().add(ButonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 161, 39));
 
+        Paneltitu.setBackground(new java.awt.Color(51, 153, 0));
         Paneltitu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        Paneltitu.setForeground(new java.awt.Color(255, 255, 255));
         Paneltitu.setToolTipText("");
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("CANCHAS ");
 
         javax.swing.GroupLayout PaneltituLayout = new javax.swing.GroupLayout(Paneltitu);
         Paneltitu.setLayout(PaneltituLayout);
         PaneltituLayout.setHorizontalGroup(
             PaneltituLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 476, Short.MAX_VALUE)
+            .addGroup(PaneltituLayout.createSequentialGroup()
+                .addGap(179, 179, 179)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(187, Short.MAX_VALUE))
         );
         PaneltituLayout.setVerticalGroup(
             PaneltituLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 36, Short.MAX_VALUE)
+            .addGroup(PaneltituLayout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(0, 8, Short.MAX_VALUE))
         );
 
-        getContentPane().add(Paneltitu, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 480, 40));
+        getContentPane().add(Paneltitu, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 570, 60));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        PanelCanchas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
         datoscanchas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         datoscanchas.setForeground(new java.awt.Color(0, 0, 0));
@@ -146,138 +151,140 @@ public class FrmMenuCanchas extends javax.swing.JFrame {
         datoscanchas.setText("Datos Canchas");
         datoscanchas.setToolTipText("");
 
-        TxtNombre.setText("Codigo");
+        LblCodigo.setText("Codigo");
 
-        TxlHorario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        TxtHorario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        txtHorario.setText("Horario ");
+        lblHorario.setText("Horario ");
 
-        TxtTipo1.setText("Nombre");
+        LblNombre.setText("Nombre");
 
-        TxLNombre1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        TxLNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        TxtTipo.setText("Tipo");
+        lblTipo.setText("Tipo");
 
-        TxtTipo3.setText("Capacidad");
+        lblcapacidad.setText("Capacidad");
 
-        TxtPrecio.setText("Precio");
+        lblPrecio.setText("Precio");
 
-        TxlPrecio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        TxtPrecio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Futbol 5", "Futbol 6", "Futbol 7", "Futbol 8", "Futbol 9", "Futbol 11" }));
+        ComboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Futbol 5", "Futbol 6", "Futbol 7", "Futbol 8", "Futbol 9", "Futbol 11" }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10 Jugadores", "12 Jugadores", "14 Jugadores", "16 Jugadores", "18 Jugadores", "22 Jugadores" }));
+        ComboCapacidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10 Jugadores", "12 Jugadores", "14 Jugadores", "16 Jugadores", "18 Jugadores", "22 Jugadores" }));
 
-        TxtEstado.setText("Estado");
+        lblEstado.setText("Estado");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PENDIENTE", "CONFIRMADA", "EN CURSO", "FINALIZADA", "CANCELADA" }));
-        jComboBox3.addActionListener(this::jComboBox3ActionPerformed);
+        ComboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PENDIENTE", "CONFIRMADA", "EN CURSO", "FINALIZADA", "CANCELADA" }));
+        ComboEstado.addActionListener(this::ComboEstadoActionPerformed);
 
         ButonAgregar.setBackground(new java.awt.Color(255, 255, 255));
         ButonAgregar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ButonAgregar.setForeground(new java.awt.Color(0, 0, 0));
         ButonAgregar.setText("Agregar ");
         ButonAgregar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        ButonAgregar.addActionListener(this::ButonAgregarActionPerformed);
 
-        Txcodigo.setEditable(false);
-        Txcodigo.setBackground(new java.awt.Color(204, 0, 51));
-        Txcodigo.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        Txcodigo.setForeground(new java.awt.Color(255, 255, 255));
-        Txcodigo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        Txcodigo.addActionListener(this::TxcodigoActionPerformed);
+        Txtcodigo.setEditable(false);
+        Txtcodigo.setBackground(new java.awt.Color(204, 0, 51));
+        Txtcodigo.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        Txtcodigo.setForeground(new java.awt.Color(255, 255, 255));
+        Txtcodigo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        Txtcodigo.addActionListener(this::TxtcodigoActionPerformed);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout PanelCanchasLayout = new javax.swing.GroupLayout(PanelCanchas);
+        PanelCanchas.setLayout(PanelCanchasLayout);
+        PanelCanchasLayout.setHorizontalGroup(
+            PanelCanchasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelCanchasLayout.createSequentialGroup()
+                .addGroup(PanelCanchasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(PanelCanchasLayout.createSequentialGroup()
                         .addGap(8, 8, 8)
-                        .addComponent(TxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(LblCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(PanelCanchasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelCanchasLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(datoscanchas, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelCanchasLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
                                 .addComponent(ButonAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(12, 12, 12))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(PanelCanchasLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(TxtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(TxlPrecio))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(TxtTipo1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(Txcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(0, 0, Short.MAX_VALUE))
-                                            .addComponent(TxLNombre1))))
-                                .addGap(12, 12, 12)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(TxtTipo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TxtTipo3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(PanelCanchasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelCanchasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(LblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PanelCanchasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(TxtHorario)
+                            .addGroup(PanelCanchasLayout.createSequentialGroup()
+                                .addComponent(Txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(TxLNombre)
+                            .addComponent(TxtPrecio, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(12, 12, 12)
+                        .addGroup(PanelCanchasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelCanchasLayout.createSequentialGroup()
+                                .addGroup(PanelCanchasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblTipo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblcapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jComboBox2, 0, 122, Short.MAX_VALUE)
-                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(TxlHorario, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(TxtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(PanelCanchasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(ComboCapacidad, 0, 122, Short.MAX_VALUE)
+                                    .addComponent(ComboTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(PanelCanchasLayout.createSequentialGroup()
+                                .addComponent(lblEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(ComboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(16, 16, 16))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        PanelCanchasLayout.setVerticalGroup(
+            PanelCanchasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelCanchasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(datoscanchas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(PanelCanchasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelCanchasLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ButonAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(PanelCanchasLayout.createSequentialGroup()
                         .addGap(4, 4, 4)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Txcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TxtTipo1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TxLNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TxtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TxtTipo3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(PanelCanchasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(LblCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Txtcodigo))))
+                .addGroup(PanelCanchasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelCanchasLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(PanelCanchasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ComboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(PanelCanchasLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(PanelCanchasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TxLNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(LblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(11, 11, 11)
+                .addGroup(PanelCanchasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TxtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TxlPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TxlHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TxtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(200, 200, 200))
+                    .addComponent(lblPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblcapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ComboCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PanelCanchasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TxtHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ComboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(385, 385, 385))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 490, 420));
+        getContentPane().add(PanelCanchas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 490, 550));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 230, -1, -1));
 
-        TableCanchas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        TableCanchas.setModel(new javax.swing.table.DefaultTableModel(
+        tablecanchas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        tablecanchas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -288,9 +295,24 @@ public class FrmMenuCanchas extends javax.swing.JFrame {
                 "Codigo", "Nombre", "Tipo", "Capacidad", "Tarifa", "Estado"
             }
         ));
-        jScrollPane1.setViewportView(TableCanchas);
+        jScrollPane1.setViewportView(tablecanchas);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 70, 560, 490));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 90, 560, 280));
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 556, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 256, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 380, 560, 260));
 
         pack();
         setLocationRelativeTo(null);
@@ -314,13 +336,29 @@ public class FrmMenuCanchas extends javax.swing.JFrame {
       }  
     }//GEN-LAST:event_ButonRegresarActionPerformed
 
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+    private void TxtcodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtcodigoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox3ActionPerformed
+    }//GEN-LAST:event_TxtcodigoActionPerformed
 
-    private void TxcodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxcodigoActionPerformed
+    private void ButonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButonAgregarActionPerformed
+        if (TxLNombre.getText().trim().equals("") || TxtPrecio.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Debe llenar Nombre y Precio");
+            return;
+        }
+        DefaultTableModel modelo = (DefaultTableModel) tablecanchas.getModel();
+        String codigo    = Txtcodigo.getText();
+        String nombre    = TxLNombre.getText().trim();
+        String tipo      = ComboTipo.getSelectedItem().toString();
+        String capacidad = ComboCapacidad.getSelectedItem().toString();
+        String precio    = TxtPrecio.getText().trim();
+        String horario   = TxtHorario.getText().trim();
+        String estado    = ComboEstado.getSelectedItem().toString();
+
+    }//GEN-LAST:event_ButonAgregarActionPerformed
+
+    private void ComboEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboEstadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_TxcodigoActionPerformed
+    }//GEN-LAST:event_ComboEstadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -350,25 +388,27 @@ public class FrmMenuCanchas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButonAgregar;
     private javax.swing.JButton ButonRegresar;
+    private javax.swing.JComboBox<String> ComboCapacidad;
+    private javax.swing.JComboBox<String> ComboEstado;
+    private javax.swing.JComboBox<String> ComboTipo;
+    private javax.swing.JLabel LblCodigo;
+    private javax.swing.JLabel LblNombre;
+    private javax.swing.JPanel PanelCanchas;
     private javax.swing.JPanel Paneltitu;
-    private javax.swing.JTable TableCanchas;
-    private javax.swing.JTextField TxLNombre1;
-    private javax.swing.JTextField Txcodigo;
-    private javax.swing.JTextField TxlHorario;
-    private javax.swing.JTextField TxlPrecio;
-    private javax.swing.JLabel TxtEstado;
-    private javax.swing.JLabel TxtNombre;
-    private javax.swing.JLabel TxtPrecio;
-    private javax.swing.JLabel TxtTipo;
-    private javax.swing.JLabel TxtTipo1;
-    private javax.swing.JLabel TxtTipo3;
+    private javax.swing.JTextField TxLNombre;
+    private javax.swing.JTextField TxtHorario;
+    private javax.swing.JTextField TxtPrecio;
+    private javax.swing.JTextField Txtcodigo;
     private javax.swing.JLabel datoscanchas;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel txtHorario;
+    private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblHorario;
+    private javax.swing.JLabel lblPrecio;
+    private javax.swing.JLabel lblTipo;
+    private javax.swing.JLabel lblcapacidad;
+    private javax.swing.JTable tablecanchas;
     // End of variables declaration//GEN-END:variables
 }

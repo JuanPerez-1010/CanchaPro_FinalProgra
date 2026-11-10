@@ -6,6 +6,9 @@ package cancha_pro_final;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 
 
@@ -65,13 +68,46 @@ public class Canchas {
             }
         int siguiente = maximo + 1;
         if (siguiente < 10) {
-            return "C00" + siguiente;
+            return "k00" + siguiente;
         } else if (siguiente < 100) {
-            return "C0" + siguiente;
+            return "K0" + siguiente;
         } else {
-            return "C" + siguiente;
+            return "K" + siguiente;
         }
     }
+   
+   public void CargarCanchas(JTable tablecanchas){
+    DefaultTableModel modelo = (DefaultTableModel) tablecanchas.getModel();
+        modelo.setRowCount(0);
+        try {
+        FileReader leer = new FileReader("Canchas.txt");
+        BufferedReader buff = new BufferedReader(leer);
+
+        String linea = buff.readLine();
+
+        while (linea != null) {
+            if (!linea.trim().equals("")) {
+                String[] datos = linea.split(",");
+                String codigo    = datos[0];
+                String nombre    = datos[1];
+                String tipo      = datos[2];
+                String capacidad = datos[3];
+                String precio    = datos[4];
+                String horario   = datos[5];
+                String estado    = datos[6];
+             modelo.addRow(new Object[]{codigo, nombre, tipo, capacidad, precio, horario, estado});
+            }
+            linea = buff.readLine();
+              }
+        buff.close();
+        leer.close();
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "No a cargado");
+    }
+    generasiguicod(tablecanchas);    
+   }
+   
    
   
     

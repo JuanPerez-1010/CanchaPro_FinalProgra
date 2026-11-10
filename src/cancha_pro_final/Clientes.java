@@ -19,7 +19,7 @@ public class Clientes  {
     private String telefono;
     private String frecuente;
     private String fechaRegistro;
-    
+     
     public Clientes (){}
 
    public Clientes(String codigo, String nombre, String correo, String telefono, String frecuente, String fechaRegistro){
@@ -30,6 +30,8 @@ public class Clientes  {
         this.frecuente = frecuente;
         this.fechaRegistro = fechaRegistro;
     }
+
+   
     public Object[] cliente() {
      return new Object[]{codigo, nombre, correo, telefono, frecuente, fechaRegistro};
     }  
