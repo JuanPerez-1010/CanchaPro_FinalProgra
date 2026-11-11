@@ -19,6 +19,9 @@ public class FrmMenuCanchas extends javax.swing.JFrame {
 
     
     boolean cambios =false;
+        String nobre;
+        int avlor;
+        string intento;
     /**
      * Creates new form FrmMenuCanchas
      */
