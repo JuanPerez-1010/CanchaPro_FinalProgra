@@ -20,16 +20,23 @@ public class Canchas {
     private String CodidoC;
     private String NombreC;
     private String CapacidadC;
-    private String PrecioBase;
+    private double PrecioBase;
+    private String estadoC;
+    private String horaApertura;
+    private String horaCierre;
     
     
     public Canchas (){}
     
-   public Canchas(String CodidoC,String NombreC,String CapacidadC,String PrecioBase){
+   public Canchas(String CodidoC,String NombreC,String CapacidadC,double PrecioBase, String estadoC, String horaApertura, String horaCierre;
+    private String horaApert){
        this.CodidoC=CodidoC;
        this.NombreC=NombreC;
        this.CapacidadC=CapacidadC;
        this.PrecioBase=PrecioBase;
+       this.horaApertura = horaApertura;
+       this.hora.Cieurra = horaApertura;
+       
    }
      
    public String generasiguicod(javax.swing.JTable tabla) {
