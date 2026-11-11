@@ -28,15 +28,13 @@ public class Canchas {
     
     public Canchas (){}
     
-   public Canchas(String CodidoC,String NombreC,String CapacidadC,double PrecioBase, String estadoC, String horaApertura, String horaCierre;
-    private String horaApert){
+   public Canchas(String CodidoC,String NombreC,String CapacidadC,double PrecioBase, String estadoC, String horaApertura, String horaCierre){
        this.CodidoC=CodidoC;
        this.NombreC=NombreC;
        this.CapacidadC=CapacidadC;
        this.PrecioBase=PrecioBase;
        this.horaApertura = horaApertura;
-       this.hora.Cieurra = horaApertura;
-       
+       this.horaCierre = horaCierre; 
    }
      
    public String generasiguicod(javax.swing.JTable tabla) {
