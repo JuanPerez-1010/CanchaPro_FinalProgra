@@ -968,12 +968,11 @@
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="5">
-                    <StringItem index="0" value="PENDIENTE"/>
-                    <StringItem index="1" value="CONFIRMADA"/>
-                    <StringItem index="2" value="EN CURSO"/>
-                    <StringItem index="3" value="FINALIZADA"/>
-                    <StringItem index="4" value="CANCELADA"/>
+                  <StringArray count="4">
+                    <StringItem index="0" value="DISPONIBLE"/>
+                    <StringItem index="1" value="MANTENIMIENTO"/>
+                    <StringItem index="2" value="INACTIVA"/>
+                    <StringItem index="3" value=" "/>
                   </StringArray>
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">

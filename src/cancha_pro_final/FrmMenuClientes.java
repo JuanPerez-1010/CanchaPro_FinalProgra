@@ -607,9 +607,9 @@ public class FrmMenuClientes extends javax.swing.JFrame {
         return; 
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "No se permiten permite ingresar numeros");
-            return;
-}
+        JOptionPane.showMessageDialog(this, "Ingrese solo números en el teléfono.");
+        return;
+        }
         for (int i = 0; i < nombre.length(); i++) {
            char caracter = nombre.charAt(i);
             if (Character.isDigit(caracter)) {
@@ -735,10 +735,10 @@ public class FrmMenuClientes extends javax.swing.JFrame {
         TableClientes.setValueAt(Txtelfono.getText().trim(), fila, 3);
         TableClientes.setValueAt(miFrecuente,fila,4);
         
-        Txcodigo.setText(" ");
-        Txnombre.setText(" ");
-        Txcorreo.setText(" ");
-        Txtelfono.setText(" ");
+        Txcodigo.setText("");
+        Txnombre.setText("");
+        Txcorreo.setText("");
+        Txtelfono.setText("");
         frecuentesiono.setSelected(false);
         
         generarcodigo();
@@ -759,13 +759,12 @@ public class FrmMenuClientes extends javax.swing.JFrame {
          int filas  = TableClientes.getRowCount();
          
          for (int i=0; i<filas; i++){
-        String codigo  =TableClientes.getValueAt(i,0).toString();
-        String nombre  =TableClientes.getValueAt(i,1).toString();
-        String correo  =TableClientes.getValueAt(i,2).toString();
-        String telefono =TableClientes.getValueAt(i,3).toString();
-        String frecuencia  =TableClientes.getValueAt(i,4).toString();
+        String codigo = TableClientes.getValueAt(i, 0).toString().trim();
+        String nombre = TableClientes.getValueAt(i, 1).toString().trim();
+        String correo = TableClientes.getValueAt(i, 2).toString().trim();
+        String telefono = TableClientes.getValueAt(i, 3).toString().trim();
+        String frecuencia = TableClientes.getValueAt(i, 4).toString().trim();
         Object valFecha = TableClientes.getValueAt(i, 5);
-        
         if (valFecha != null && !valFecha.toString().trim().isEmpty()) {
             valFecha = valFecha.toString(); 
 
@@ -788,9 +787,9 @@ public class FrmMenuClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_ButonGuardarActionPerformed
 
     private void butonlimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butonlimpiarActionPerformed
-        Txnombre.setText(" ");
-        Txcorreo.setText(" ");
-        Txtelfono.setText(" ");
+        Txnombre.setText("");
+        Txcorreo.setText("");
+        Txtelfono.setText("");
         frecuentesiono.setSelected(false);
         generarcodigo();
         ButonAgregarCliente.setEnabled(true);         

@@ -5,6 +5,7 @@
 package cancha_pro_final;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -99,9 +100,7 @@ public class Clientes  {
         } else {
             return "C" + siguiente;
         }
-    }
-
-    
+    }  
     public void buscarcliente (javax.swing.JTable tabla, String busqueda, String nombre){
     
         boolean encontrado = false;
@@ -154,9 +153,7 @@ public class Clientes  {
             }
        
          }
- 
    public void actulizarcliente(String codigo, String nnombre, String ncorreo, String ntelefono,String nfrecuencia){
- 
     try{
         FileReader leerclientes = new FileReader("Clientes.txt");
         BufferedReader buffcli = new BufferedReader(leerclientes);
@@ -178,7 +175,6 @@ public class Clientes  {
              }
          leerclientes.close();
          buffcli.close();
-         
          FileWriter reescribir = new FileWriter("Clientes.txt");
          reescribir.write(codinuevo);
          reescribir.close();
@@ -187,6 +183,61 @@ public class Clientes  {
         JOptionPane.showMessageDialog(null, "Error al Actulizar ");
         }
          }
+   public static String obtenerNombrePorCodigo(Clientes[] arreglo, int contador, String codigoBuscar) {
+        for (int i = 0; i < contador; i++) {
+        if (arreglo[i] != null) {
+        if (arreglo[i].getCodigo().equalsIgnoreCase(codigoBuscar.trim())) {
+        return arreglo[i].getNombre();
+                }
+            }
+        }
+        return codigoBuscar;
+    }
+   public static int buscarPosicionCliente(Clientes[] arreglo, int contador, String textoBuscado) {
+        String buscar = textoBuscado.toLowerCase().trim();
+        for (int i = 0; i < contador; i++) {
+          if (arreglo[i] != null) {
+          String cod = arreglo[i].getCodigo().toLowerCase();
+          String nom = arreglo[i].getNombre().toLowerCase();
+          String tel = arreglo[i].getTelefono().toLowerCase();
+          if (cod.contains(buscar) || nom.contains(buscar) || tel.contains(buscar)) {
+         return i;
+          }
+         }
+        }
+       return -1;
+    }
+   public static int CargarArchivosClientes(Clientes[] arreglo) {
+        File archivo = new File("Clientes.txt");
+        if (!archivo.exists()) {
+            return 0;
+        }
+        int contador = 0;
+        try {
+            FileReader leer = new FileReader(archivo);
+            BufferedReader buff = new BufferedReader(leer);
+            String linea = buff.readLine();
+            while (linea != null) {
+            if (linea.trim().length() > 0) {
+            String[] d = linea.split(",");
+            if (d.length >= 6) {
+            arreglo[contador] = new Clientes(d[0].trim(),d[1].trim(),d[2].trim(),d[3].trim(),d[4].trim(),d[5].trim());
+             contador++;
+             } else if (d.length == 5) {
+             arreglo[contador] = new Clientes(d[0].trim(),d[1].trim(),d[2].trim(),d[3].trim(),d[4].trim(),"");
+             contador++;
+                    }
+                }
+                linea = buff.readLine();
+            }
+            buff.close();
+            leer.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error en el archivo clientes ");
+        }
+        return contador;
+    }
+   
    
 }
   

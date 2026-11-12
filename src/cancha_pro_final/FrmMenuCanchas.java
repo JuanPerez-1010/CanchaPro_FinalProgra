@@ -57,7 +57,7 @@ public class FrmMenuCanchas extends javax.swing.JFrame {
     private void limpiarCampos() {
         TxLNombre.setText("");
         TxtPrecio.setText("");
-        ComboTipo.setSelectedIndex(0);
+        ComboTipo.setSelectedIndex(0);  
         ComboCapacidad.setSelectedIndex(0);
         ComboEstado.setSelectedIndex(0);
         ComboApertura.setSelectedIndex(0);
@@ -444,7 +444,7 @@ public class FrmMenuCanchas extends javax.swing.JFrame {
         ComboEstado.setBackground(new java.awt.Color(255, 204, 102));
         ComboEstado.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         ComboEstado.setForeground(new java.awt.Color(0, 0, 0));
-        ComboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PENDIENTE", "CONFIRMADA", "EN CURSO", "FINALIZADA", "CANCELADA" }));
+        ComboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DISPONIBLE", "MANTENIMIENTO", "INACTIVA", " " }));
         ComboEstado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ComboEstado.addActionListener(this::ComboEstadoActionPerformed);
 
