@@ -39,10 +39,9 @@ public class FrmMenuPagos extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new java.awt.Color(25, 65, 30));
-        JTable.getTableHeader().setBackground(new java.awt.Color(30, 80, 50));
+        JTable.getTableHeader().setBackground(new java.awt.Color(28, 76, 44));
         JTable.getTableHeader().setForeground(java.awt.Color.WHITE);
         JTable.getTableHeader().setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
-
         Txtcodigo.setEditable(false);
         txtfechayhora1.setEditable(false);
 
@@ -181,6 +180,7 @@ public class FrmMenuPagos extends javax.swing.JFrame {
         JTable.setBackground(new java.awt.Color(255, 255, 255));
         JTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         JTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        JTable.setForeground(new java.awt.Color(0, 0, 0));
         JTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -192,10 +192,13 @@ public class FrmMenuPagos extends javax.swing.JFrame {
                 "Codigo", "Reserva", "Fecha y Hora", "Motnto", "Metodo", "Observacion"
             }
         ));
-        JTable.setGridColor(new java.awt.Color(204, 204, 204));
+        JTable.setGridColor(new java.awt.Color(0, 0, 0));
         JTable.setRowHeight(16);
+        JTable.setRowMargin(22);
         JTable.setSelectionBackground(new java.awt.Color(30, 80, 50));
         JTable.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        JTable.setShowHorizontalLines(true);
+        JTable.setShowVerticalLines(true);
         jScrollPane1.setViewportView(JTable);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 270, 790, 340));

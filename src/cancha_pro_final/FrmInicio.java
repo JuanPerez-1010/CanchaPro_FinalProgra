@@ -18,6 +18,7 @@ public class FrmInicio extends javax.swing.JFrame {
     public FrmInicio() {
         initComponents();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -224,8 +225,8 @@ public class FrmInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_ButonPagos1ActionPerformed
 
     private void BurtonReportes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BurtonReportes1ActionPerformed
-        FrmReportes pago = new FrmReportes();
-        pago.setVisible(true);
+        FrmReportes reserva = new FrmReportes();
+        reserva.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BurtonReportes1ActionPerformed
 

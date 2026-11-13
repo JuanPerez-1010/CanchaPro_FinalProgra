@@ -4,24 +4,146 @@
  */
 package cancha_pro_final;
 
-/**
- *
- * @author PERSONAL
- */
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
+    
 public class FrmReportes extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmReportes.class.getName());
 
-    /**
-     * Creates new form FrmReportes
-     */
+
     
-    
+    Clientes[] listaCli = new Clientes[200];
+    int totalCli = 0;
+    Canchas[] listaCan = new Canchas[100];
+    int totalCan = 0;
+    Reserva[] listaRes = new Reserva[300];
+    int totalRes = 0;
+    Pagos[] listaPag = new Pagos[300];
+    int totalPag = 0;
+    Reportes[] canasta = new Reportes[300];
+    int cuantos = 0;
+
+    DefaultTableModel modelo;
+    boolean guardado = true;
     
     
     public FrmReportes() {
         initComponents();
+        this.getContentPane().setBackground(new java.awt.Color(25, 65, 30));
+        this.setLocationRelativeTo(null);
+        modelo = (DefaultTableModel) JTable.getModel();
+        modelo.setRowCount(0);
+
+        cargarTodo();
+        }
+    private void cargarTodo() {
+        totalCli = Clientes.CargarArchivosClientes(listaCli);
+        totalCan = Canchas.CargarCanchas(listaCan, 100);
+        totalRes = Reserva.CargarArchivosReservas(listaRes);
+        totalPag = Pagos.CargarArchivosPagos(listaPag);
+
+        LocalDateTime ahora = LocalDateTime.now();
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        txtfechayhora.setText(ahora.format(fmt));
+
+        ComboReserva.removeAllItems();
+        ComboReserva.addItem("Todas");
+        for (int i = 0; i < totalRes; i++) {
+            Reserva r = listaRes[i];
+            if (r != null) {
+                String nom = Reportes.buscarNombreCliente(listaCli, totalCli, r.getCodigoCliente());
+                ComboReserva.addItem(r.getCodigoR() + " - " + nom);
+            }
+        }
+
+        ComboCanchas.removeAllItems();
+        ComboCanchas.addItem("Todas");
+        for (int i = 0; i < totalCan; i++) {
+            if (listaCan[i] != null) {
+                ComboCanchas.addItem(listaCan[i].getCodigoC());
+            }
+        }
+        llenarResumen();
     }
+    private void llenarResumen() {
+        txtcanchamasusuada.setText(Reportes.obtenerCanchaTop(listaRes, totalRes, listaCan, totalCan));
+        txthorariopico.setText(Reportes.obtenerHorarioTop(listaRes, totalRes));
+        txtclientetop.setText(Reportes.obtenerClienteTop(listaRes, totalRes, listaCli, totalCli));
+        txttotalderegistros1.setText(String.valueOf(cuantos));
+
+        double suma = Reportes.sumarDineroCanasta(canasta, cuantos);
+        txttotaldedinero.setText("Q" + String.format(Locale.US, "%.2f", suma));
+    }
+    private void mostrarTabla() {
+        modelo.setRowCount(0);
+        for (int i = 0; i < cuantos; i++) {
+          Reportes r = canasta[i];
+          if (r != null) {
+          modelo.addRow(new Object[]{r.getCodigoCriterio(),r.getDetalles(),r.getFechaHora(),r.getCantidad(),"Q" + String.format(Locale.US, "%.2f", r.getSaldoMonto())}); 
+         }
+        }}
+    private void procesarReporte() {
+        if (ComboCanchas.getSelectedItem() == null || ComboEstado.getSelectedItem() == null) {
+            return;
+        }
+        LocalDateTime ahora = LocalDateTime.now();
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        txtfechayhora.setText(ahora.format(fmt));
+
+        int tipo = ComboTipoReporte.getSelectedIndex();
+        String inicio = txtfechadeinicio1.getText().trim();
+        String fin = txtfechadefin.getText().trim();
+        String cancha = ComboCanchas.getSelectedItem().toString();
+        String estado = ComboEstado.getSelectedItem().toString();
+        cuantos = 0;
+       if (tipo == 0) {
+            cuantos = Reportes.reporteReservasPorFecha(canasta, listaRes, totalRes, listaCli, totalCli, listaCan, totalCan, inicio, fin, cancha, estado);
+        } else if (tipo == 1) {
+            cuantos = Reportes.reporteReservasPorCancha(canasta, listaRes, totalRes, listaCli, totalCli, listaCan, totalCan, inicio, fin, cancha);
+        } else if (tipo == 2) {
+            cuantos = Reportes.reporteIngresosPorPeriodo(canasta, listaPag, totalPag, inicio, fin);
+        } else if (tipo == 3) {
+            cuantos = Reportes.reportePagosPendientes(canasta, listaRes, totalRes, listaCli, totalCli, listaCan, totalCan, cancha);
+        } else if (tipo == 4) {
+            cuantos = Reportes.reporteReservasCanceladas(canasta, listaRes, totalRes, listaCli, totalCli, inicio, fin);
+        } else if (tipo == 5) {
+            cuantos = Reportes.reporteCanchaMasUtilizada(canasta, listaRes, totalRes, listaCan, totalCan);
+        } else if (tipo == 6) {
+            cuantos = Reportes.reporteHorariosMayorDemanda(canasta, listaRes, totalRes);
+        } else if (tipo == 7) {
+            cuantos = Reportes.reporteClientesFrecuentes(canasta, listaRes, totalRes, listaCli, totalCli);
+        }
+        String resSel = ComboReserva.getSelectedItem().toString();
+        if (!resSel.equals("Todas") && (tipo == 0 || tipo == 1 || tipo == 3 || tipo == 4)) {
+            String codRes = resSel.split(" - ")[0].trim();
+            Reportes[] temp = new Reportes[300];
+            int k = 0;
+            for (int i = 0; i < cuantos; i++) {
+              if (canasta[i] != null && canasta[i].getCodigoCriterio().equalsIgnoreCase(codRes)) {
+             temp[k] = canasta[i];
+             k++;
+             } }
+            canasta = temp;
+            cuantos = k;
+        }
+        mostrarTabla();
+        llenarResumen();
+        guardado = false;
+        if (cuantos == 0) {
+            JOptionPane.showMessageDialog(this, "No se encontraron registros con esos filtros.");
+        }
+    }
+    
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -71,6 +193,7 @@ public class FrmReportes extends javax.swing.JFrame {
         ButonGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(153, 153, 0));
 
         JTable.setBackground(new java.awt.Color(255, 255, 255));
         JTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -136,7 +259,7 @@ public class FrmReportes extends javax.swing.JFrame {
         blbtipodereporte.setForeground(new java.awt.Color(255, 255, 255));
         blbtipodereporte.setText("Tipo de reoporte");
 
-        ComboTipoReporte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboTipoReporte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1. Reservas por fecha", "2. Reservas por cancha", "3. Ingresos por periodo", "4. Pagos pendientes", "5. Reservas canceladas", "6. Cancha mas utilizada", "7. Horarios de mayor demanda", "8. Clientes frecuentes" }));
 
         lblseccionreserva1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblseccionreserva1.setForeground(new java.awt.Color(255, 255, 255));
@@ -227,9 +350,9 @@ public class FrmReportes extends javax.swing.JFrame {
         txtfechadeinicio1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtfechadeinicio1.setForeground(new java.awt.Color(0, 0, 0));
 
-        ComboCanchas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboCanchas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "PENDIENTE", "CONFIRMADA", "EN CURSO", "FINALIZADA", "CANCELADA" }));
 
-        ComboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "PENDIENTE", "CONFIRMADA", "EN_CURSO", "FINALIZADA", "CANCELADA" }));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -366,44 +489,50 @@ public class FrmReportes extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblsubtitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(202, 202, 202))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblclientetop1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblcanchamasusada1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblhorariopico1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtclientetop, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(txthorariopico, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbltotaldedinero, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txttotaldedinero, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(txtcanchamasusuada, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtcanchamasusuada, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
                         .addComponent(lbltotalregistro1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txttotalderegistros1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                        .addComponent(txttotalderegistros1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblhorariopico1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblcanchamasusada1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(120, 120, 120)
+                        .addComponent(lblsubtitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(lblclientetop1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtclientetop, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(txthorariopico, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36)
+                                .addComponent(lbltotaldedinero, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txttotaldedinero, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblsubtitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblcanchamasusada1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtcanchamasusuada, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbltotalregistro1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txttotalderegistros1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblsubtitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(lblcanchamasusada1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbltotalregistro1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txttotalderegistros1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtcanchamasusuada, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblhorariopico1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -424,7 +553,7 @@ public class FrmReportes extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -457,9 +586,7 @@ public class FrmReportes extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 698, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(JPaneltitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -477,22 +604,37 @@ public class FrmReportes extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButonRegresarActionPerformed
-        
+        if (!guardado && cuantos > 0) {
+            int opion = JOptionPane.showConfirmDialog(this, "Tienes un reporte sin guadr al txt. ¿Salir sin guardar?", "Aviso", JOptionPane.YES_NO_OPTION);
+            if (opion != JOptionPane.YES_OPTION) {
+            return;
+            }}
+        FrmInicio menu = new FrmInicio(); 
+        menu.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_ButonRegresarActionPerformed
 
     private void ButonReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButonReportesActionPerformed
-        // TODO add your handling code here:
+        procesarReporte();
     }//GEN-LAST:event_ButonReportesActionPerformed
 
     private void ButonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButonGuardarActionPerformed
-        // TODO add your handling code here:
+       if (cuantos == 0) {
+            JOptionPane.showMessageDialog(this, "Primero genera un reporte antes de guardar.");
+            return;
+        }
+        String nombreRep = ComboTipoReporte.getSelectedItem().toString();
+        String fecha = txtfechayhora.getText();
+        Reportes.GuardarArchivoReportes(canasta, cuantos, nombreRep, fecha);
+        guardado = true;
+        JOptionPane.showMessageDialog(this, "Reporte guardado en Reportes.txt");
     }//GEN-LAST:event_ButonGuardarActionPerformed
 
     /**

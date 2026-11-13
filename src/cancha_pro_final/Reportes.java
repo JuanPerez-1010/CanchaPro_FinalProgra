@@ -80,9 +80,7 @@ public class Reportes {
             for (int i = 0; i < contador; i++) {
                 Reportes rep = canasta[i];
                 if (rep != null) {
-                    String det = rep.getDetalles().replace(",", " ");
-                    String linea = rep.getCodigoCriterio() + ","+ det + ","+ rep.getFechaHora() + "," + String.format(Locale.US, "%.2f", rep.getSaldoMonto());
- 
+                  String linea = rep.getCodigoCriterio() + ","+ rep.detalles + ","+ rep.getFechaHora() + ","+ rep.getCantidad() + ","+ String.format(Locale.US, "%.2f", rep.getSaldoMonto());
                     bw.write(linea);
                     bw.newLine();
                 }
