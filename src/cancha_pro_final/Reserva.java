@@ -178,15 +178,23 @@ public class Reserva {
             for (int i = 0; i < contador; i++) {
             Reserva r = arreglo[i];
             if (r != null) {
-              String linea = r.getCodigoR() + ","+ r.getCodigoCliente() + ","+ r.getCodigoCancha() + ","+ r.getFecha() + ","+ r.getHoraInicio() + ","+ r.getHoras() + ","+ r.getHoraFin() + ","+ r.getServicios() + ","+ r.getTotal() + ","+ r.getAnticipo() + ","+ r.getSaldo() + ","+ r.getEstado() + ","+ r.getMotivoCancelacion();         
-              bw.write(linea);
-              bw.newLine();
+              String serv = r.getServicios();
+                    if (serv == null || serv.trim().equals("")) {
+                        serv = "Ninguno";
+                    }
+                    String motivo = r.getMotivoCancelacion();
+                    if (motivo == null || motivo.trim().equals("")) {
+                        motivo = "Ninguno";
+                    }
+                    String linea = r.getCodigoR() + "," + r.getCodigoCliente() + ","+ r.getCodigoCancha() + ","+ r.getFecha() + ","+ r.getHoraInicio() + ","+ r.getHoras() + ","+ r.getHoraFin() + ","+ serv + ","+ r.getTotal() + ","+ r.getAnticipo() + ","+ r.getSaldo() + ","+ r.getEstado() + ","+ motivo;
+                    bw.write(linea);
+                    bw.newLine();
                 }
             }
             bw.close();
             fw.close();
-        } catch (Exception e) {
-            System.out.println("Erro en el txt " + e.getMessage());
+            } catch (Exception e) {
+            System.out.println("Eror en el archivo " + e.getMessage());
         }
     }
     public static String generarCodigo(Reserva[] arreglo, int contador) {
@@ -194,9 +202,9 @@ public class Reserva {
         for (int i = 0; i < contador; i++) {
             if (arreglo[i] != null) {
                 try {
-                    String numTexto = arreglo[i].getCodigoR().trim().replace("R", "");
-                    int num = Integer.parseInt(numTexto);
-                    if (num > maximo) {
+                String numTexto = arreglo[i].getCodigoR().trim().replace("R", "");
+                int num = Integer.parseInt(numTexto);
+                if (num > maximo) {
                         maximo = num;
                     }
                 } catch (Exception e) {

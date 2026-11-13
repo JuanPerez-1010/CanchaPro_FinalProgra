@@ -1,0 +1,2 @@
+R001,C001,K001,2026-11-12,06:00,1,07:00,Balon Iluminacion,185.0,150.0,35.0,CONFIRMADA,Ninguno
+R002,C004,K003,2026-11-12,12:00,1,13:00,Balon,140.0,70.0,70.0,CANCELADA,Por falta de jugadores que no se presentaron (2026-11-12)

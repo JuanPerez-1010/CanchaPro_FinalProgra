@@ -17,9 +17,9 @@ public class FrmMenuCanchas extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmMenuCanchas.class.getName());
 
-    private final int MAX_CANCHAS = 100;
-    private Canchas[] arregloCanchas = new Canchas[MAX_CANCHAS];
-    private int contadorCanchas = 0;
+    private static final int MAX_CANCHAS = 100;
+    public static Canchas[] arregloCanchas = new Canchas[MAX_CANCHAS];
+    public static int contadorCanchas = 0;
     private int filaSeleccionada = -1;
     boolean cambios =false;
     /**
@@ -31,6 +31,7 @@ public class FrmMenuCanchas extends javax.swing.JFrame {
     
     public FrmMenuCanchas() {
         initComponents();
+        
         tablecanchas.getTableHeader().setBackground(new java.awt.Color(30, 80, 50));
         tablecanchas.getTableHeader().setForeground(java.awt.Color.WHITE);
         tablecanchas.getTableHeader().setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
@@ -96,16 +97,6 @@ public class FrmMenuCanchas extends javax.swing.JFrame {
         PanelCanchas = new javax.swing.JPanel();
         datoscanchas = new javax.swing.JLabel();
         ButonAgregar = new javax.swing.JButton();
-        PanelGuardar = new javax.swing.JPanel();
-        ButonGuardar = new javax.swing.JButton();
-        ComoboBucarPor = new javax.swing.JComboBox<>();
-        lblBuscar = new javax.swing.JLabel();
-        ButonBuscar = new javax.swing.JButton();
-        TxtBuscar = new javax.swing.JTextField();
-        ButonEliminar = new javax.swing.JButton();
-        ButonEditar = new javax.swing.JButton();
-        lblBuscar2 = new javax.swing.JLabel();
-        lblBuscar1 = new javax.swing.JLabel();
         ButonGuardarEdi = new javax.swing.JButton();
         Butonlimpiar1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -131,6 +122,16 @@ public class FrmMenuCanchas extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablecanchas = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
+        PanelGuardar = new javax.swing.JPanel();
+        ButonGuardar = new javax.swing.JButton();
+        ComoboBucarPor = new javax.swing.JComboBox<>();
+        lblBuscar = new javax.swing.JLabel();
+        ButonBuscar = new javax.swing.JButton();
+        TxtBuscar = new javax.swing.JTextField();
+        ButonEliminar = new javax.swing.JButton();
+        ButonEditar = new javax.swing.JButton();
+        lblBuscar2 = new javax.swing.JLabel();
+        lblBuscar1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -180,7 +181,7 @@ public class FrmMenuCanchas extends javax.swing.JFrame {
                 .addGap(0, 8, Short.MAX_VALUE))
         );
 
-        getContentPane().add(Paneltitu, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 570, 60));
+        getContentPane().add(Paneltitu, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 570, 60));
 
         PanelCanchas.setBackground(new java.awt.Color(51, 102, 0));
         PanelCanchas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -197,119 +198,6 @@ public class FrmMenuCanchas extends javax.swing.JFrame {
         ButonAgregar.setText("Agregar ");
         ButonAgregar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         ButonAgregar.addActionListener(this::ButonAgregarActionPerformed);
-
-        PanelGuardar.setBackground(new java.awt.Color(102, 102, 0));
-        PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        ButonGuardar.setBackground(new java.awt.Color(255, 255, 255));
-        ButonGuardar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        ButonGuardar.setForeground(new java.awt.Color(0, 0, 0));
-        ButonGuardar.setText("Guardar");
-        ButonGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        ButonGuardar.addActionListener(this::ButonGuardarActionPerformed);
-
-        ComoboBucarPor.setBackground(new java.awt.Color(255, 204, 51));
-        ComoboBucarPor.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        ComoboBucarPor.setForeground(new java.awt.Color(0, 0, 0));
-        ComoboBucarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Por Codigo", "Por Nombre", " " }));
-        ComoboBucarPor.addActionListener(this::ComoboBucarPorActionPerformed);
-
-        lblBuscar.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
-        lblBuscar.setForeground(new java.awt.Color(0, 0, 0));
-        lblBuscar.setText("Buscar Canchas ");
-
-        ButonBuscar.setBackground(new java.awt.Color(255, 153, 0));
-        ButonBuscar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ButonBuscar.setForeground(new java.awt.Color(0, 0, 0));
-        ButonBuscar.setText("Buscar");
-        ButonBuscar.setActionCommand("");
-        ButonBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        ButonBuscar.addActionListener(this::ButonBuscarActionPerformed);
-
-        TxtBuscar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        TxtBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        TxtBuscar.addActionListener(this::TxtBuscarActionPerformed);
-
-        ButonEliminar.setBackground(new java.awt.Color(204, 0, 51));
-        ButonEliminar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        ButonEliminar.setForeground(new java.awt.Color(255, 255, 255));
-        ButonEliminar.setText("Eliminar");
-        ButonEliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        ButonEliminar.addActionListener(this::ButonEliminarActionPerformed);
-
-        ButonEditar.setBackground(new java.awt.Color(255, 255, 0));
-        ButonEditar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        ButonEditar.setForeground(new java.awt.Color(0, 0, 0));
-        ButonEditar.setText("Editar");
-        ButonEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        ButonEditar.addActionListener(this::ButonEditarActionPerformed);
-
-        lblBuscar2.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
-        lblBuscar2.setForeground(new java.awt.Color(0, 0, 0));
-        lblBuscar2.setText("Herramientas ");
-
-        lblBuscar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblBuscar1.setForeground(new java.awt.Color(0, 0, 0));
-        lblBuscar1.setText("Guardar al achivo");
-
-        javax.swing.GroupLayout PanelGuardarLayout = new javax.swing.GroupLayout(PanelGuardar);
-        PanelGuardar.setLayout(PanelGuardarLayout);
-        PanelGuardarLayout.setHorizontalGroup(
-            PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelGuardarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelGuardarLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(lblBuscar2, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblBuscar1)
-                        .addGap(35, 35, 35))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelGuardarLayout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(lblBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(PanelGuardarLayout.createSequentialGroup()
-                        .addComponent(TxtBuscar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ComoboBucarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ButonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10))
-                    .addGroup(PanelGuardarLayout.createSequentialGroup()
-                        .addComponent(ButonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ButonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ButonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9))))
-        );
-        PanelGuardarLayout.setVerticalGroup(
-            PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelGuardarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblBuscar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TxtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ComoboBucarPor, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
-                .addGroup(PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelGuardarLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblBuscar2)
-                        .addGap(12, 12, 12)
-                        .addGroup(PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ButonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ButonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelGuardarLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                        .addComponent(lblBuscar1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ButonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
-        );
 
         ButonGuardarEdi.setBackground(new java.awt.Color(204, 204, 204));
         ButonGuardarEdi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -360,19 +248,18 @@ public class FrmMenuCanchas extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(lblHorario2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ComboApertura, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblHorario1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblHorario2, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ComboApertura, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblHorario1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
                 .addComponent(ComboCierre, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(116, 116, 116))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -385,7 +272,7 @@ public class FrmMenuCanchas extends javax.swing.JFrame {
                     .addComponent(lblHorario1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ComboApertura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ComboCierre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(102, 102, 0));
@@ -514,58 +401,54 @@ public class FrmMenuCanchas extends javax.swing.JFrame {
                     .addComponent(lblPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ComboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout PanelCanchasLayout = new javax.swing.GroupLayout(PanelCanchas);
         PanelCanchas.setLayout(PanelCanchasLayout);
         PanelCanchasLayout.setHorizontalGroup(
             PanelCanchasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelCanchasLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(Butonlimpiar1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ButonGuardarEdi, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
             .addGroup(PanelCanchasLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(15, 15, 15)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(PanelCanchasLayout.createSequentialGroup()
-                .addGap(152, 152, 152)
-                .addComponent(datoscanchas, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelCanchasLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(122, 122, 122))
-            .addGroup(PanelCanchasLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
                 .addGroup(PanelCanchasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelCanchasLayout.createSequentialGroup()
-                        .addComponent(PanelGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                        .addGap(152, 152, 152)
+                        .addComponent(datoscanchas, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PanelCanchasLayout.createSequentialGroup()
-                        .addComponent(Butonlimpiar1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                        .addComponent(ButonAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(ButonGuardarEdi, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23))))
+                        .addGap(192, 192, 192)
+                        .addComponent(ButonAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PanelCanchasLayout.createSequentialGroup()
+                        .addGap(113, 113, 113)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
         PanelCanchasLayout.setVerticalGroup(
             PanelCanchasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelCanchasLayout.createSequentialGroup()
                 .addComponent(datoscanchas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelCanchasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(ButonGuardarEdi, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-                    .addComponent(ButonAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Butonlimpiar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(ButonAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PanelCanchasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ButonGuardarEdi, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Butonlimpiar1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17))
         );
 
-        getContentPane().add(PanelCanchas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 570, 560));
+        getContentPane().add(PanelCanchas, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 570, 450));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 230, -1, -1));
 
         tablecanchas.setBackground(new java.awt.Color(255, 255, 255));
@@ -589,22 +472,142 @@ public class FrmMenuCanchas extends javax.swing.JFrame {
         tablecanchas.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(tablecanchas);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 80, 700, 310));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 80, 700, 260));
 
+        jPanel1.setBackground(new java.awt.Color(51, 102, 0));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+
+        PanelGuardar.setBackground(new java.awt.Color(102, 102, 0));
+        PanelGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        ButonGuardar.setBackground(new java.awt.Color(255, 255, 255));
+        ButonGuardar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        ButonGuardar.setForeground(new java.awt.Color(0, 0, 0));
+        ButonGuardar.setText("Guardar");
+        ButonGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        ButonGuardar.addActionListener(this::ButonGuardarActionPerformed);
+
+        ComoboBucarPor.setBackground(new java.awt.Color(255, 204, 51));
+        ComoboBucarPor.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        ComoboBucarPor.setForeground(new java.awt.Color(0, 0, 0));
+        ComoboBucarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Por Codigo", "Por Nombre", " " }));
+        ComoboBucarPor.addActionListener(this::ComoboBucarPorActionPerformed);
+
+        lblBuscar.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        lblBuscar.setForeground(new java.awt.Color(0, 0, 0));
+        lblBuscar.setText("Buscar Canchas ");
+
+        ButonBuscar.setBackground(new java.awt.Color(255, 153, 0));
+        ButonBuscar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ButonBuscar.setForeground(new java.awt.Color(0, 0, 0));
+        ButonBuscar.setText("Buscar");
+        ButonBuscar.setActionCommand("");
+        ButonBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        ButonBuscar.addActionListener(this::ButonBuscarActionPerformed);
+
+        TxtBuscar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        TxtBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        TxtBuscar.addActionListener(this::TxtBuscarActionPerformed);
+
+        ButonEliminar.setBackground(new java.awt.Color(204, 0, 51));
+        ButonEliminar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        ButonEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        ButonEliminar.setText("Eliminar");
+        ButonEliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        ButonEliminar.addActionListener(this::ButonEliminarActionPerformed);
+
+        ButonEditar.setBackground(new java.awt.Color(255, 255, 0));
+        ButonEditar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        ButonEditar.setForeground(new java.awt.Color(0, 0, 0));
+        ButonEditar.setText("Editar");
+        ButonEditar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        ButonEditar.addActionListener(this::ButonEditarActionPerformed);
+
+        lblBuscar2.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
+        lblBuscar2.setForeground(new java.awt.Color(0, 0, 0));
+        lblBuscar2.setText("Herramientas ");
+
+        lblBuscar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblBuscar1.setForeground(new java.awt.Color(0, 0, 0));
+        lblBuscar1.setText("Guardar al achivo");
+
+        javax.swing.GroupLayout PanelGuardarLayout = new javax.swing.GroupLayout(PanelGuardar);
+        PanelGuardar.setLayout(PanelGuardarLayout);
+        PanelGuardarLayout.setHorizontalGroup(
+            PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelGuardarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelGuardarLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(lblBuscar2, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblBuscar1)
+                        .addGap(35, 35, 35))
+                    .addGroup(PanelGuardarLayout.createSequentialGroup()
+                        .addComponent(ButonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ButonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                        .addComponent(ButonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9))
+                    .addGroup(PanelGuardarLayout.createSequentialGroup()
+                        .addGroup(PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(PanelGuardarLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(lblBuscar))
+                            .addComponent(TxtBuscar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ComoboBucarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ButonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10))))
+        );
+        PanelGuardarLayout.setVerticalGroup(
+            PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelGuardarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblBuscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TxtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ComoboBucarPor, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ButonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelGuardarLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblBuscar2)
+                        .addGap(12, 12, 12)
+                        .addGroup(PanelGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ButonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ButonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelGuardarLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblBuscar1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ButonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 696, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(51, Short.MAX_VALUE)
+                .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 246, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(PanelGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 400, 700, 250));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 360, 630, 200));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cancha_pro_final/iconosyimagenes/sesper.png"))); // NOI18N
         jLabel4.setText("jLabel1");
@@ -630,7 +633,7 @@ public class FrmMenuCanchas extends javax.swing.JFrame {
         jLabel13.setText("jLabel1");
         getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 880, 570));
 
-        setSize(new java.awt.Dimension(1336, 708));
+        setSize(new java.awt.Dimension(1336, 595));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
   
