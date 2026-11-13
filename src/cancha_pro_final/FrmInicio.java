@@ -218,11 +218,15 @@ public class FrmInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_ButonReservas1ActionPerformed
 
     private void ButonPagos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButonPagos1ActionPerformed
-        // TODO add your handling code here:
+        FrmMenuPagos pago = new FrmMenuPagos();
+        pago.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_ButonPagos1ActionPerformed
 
     private void BurtonReportes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BurtonReportes1ActionPerformed
-        // TODO add your handling code here:
+        FrmReportes pago = new FrmReportes();
+        pago.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_BurtonReportes1ActionPerformed
 
     private void ButonTienda1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButonTienda1ActionPerformed

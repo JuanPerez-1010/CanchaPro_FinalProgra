@@ -115,14 +115,12 @@
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="BurtonConfiguraciones" pref="148" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="ButonMenuClientes" max="32767" attributes="0"/>
-                          <Component id="ButonCanchas" pref="148" max="32767" attributes="0"/>
-                          <Component id="ButonReservas1" max="32767" attributes="0"/>
-                          <Component id="ButonPagos1" max="32767" attributes="0"/>
-                          <Component id="BurtonReportes1" max="32767" attributes="0"/>
-                          <Component id="ButonTienda1" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="ButonMenuClientes" max="32767" attributes="0"/>
+                      <Component id="ButonCanchas" pref="148" max="32767" attributes="0"/>
+                      <Component id="ButonReservas1" max="32767" attributes="0"/>
+                      <Component id="ButonPagos1" max="32767" attributes="0"/>
+                      <Component id="BurtonReportes1" max="32767" attributes="0"/>
+                      <Component id="ButonTienda1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="49" max="32767" attributes="0"/>
               </Group>
