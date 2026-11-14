@@ -159,7 +159,6 @@ public class FrmInicio extends javax.swing.JFrame {
         ButonCanchas.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         ButonCanchas.setForeground(new java.awt.Color(255, 255, 255));
         ButonCanchas.setText("MENU CANCHAS");
-        ButonCanchas.setActionCommand("MENU CANCHAS");
         ButonCanchas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         ButonCanchas.addActionListener(this::ButonCanchasActionPerformed);
 
@@ -276,10 +275,10 @@ public class FrmInicio extends javax.swing.JFrame {
 
         lblreserva.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblreserva.setForeground(new java.awt.Color(255, 255, 255));
-        lblreserva.setText("Reservas del dia ");
+        lblreserva.setText("Total de Reservas");
 
         lblReservasDia.setBackground(new java.awt.Color(51, 102, 0));
-        lblReservasDia.setFont(new java.awt.Font("Segoe UI", 1, 60)); // NOI18N
+        lblReservasDia.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lblReservasDia.setForeground(new java.awt.Color(255, 255, 255));
         lblReservasDia.setText("0");
         lblReservasDia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 0)));
@@ -290,18 +289,20 @@ public class FrmInicio extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(lblreserva, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(lblReservasDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(lblReservasDia, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblreserva)))
+                .addGap(25, 25, 25))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(lblreserva, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addComponent(lblReservasDia, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -315,10 +316,10 @@ public class FrmInicio extends javax.swing.JFrame {
 
         lblreserva1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblreserva1.setForeground(new java.awt.Color(255, 255, 255));
-        lblreserva1.setText("En Curso");
+        lblreserva1.setText("Confirmadas");
 
         lblEnCurso.setBackground(new java.awt.Color(51, 102, 0));
-        lblEnCurso.setFont(new java.awt.Font("Segoe UI", 1, 60)); // NOI18N
+        lblEnCurso.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lblEnCurso.setForeground(new java.awt.Color(255, 255, 255));
         lblEnCurso.setText("0");
         lblEnCurso.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 0)));
@@ -329,14 +330,13 @@ public class FrmInicio extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(lblEnCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(lblreserva1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(lblreserva1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblEnCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -349,7 +349,7 @@ public class FrmInicio extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel5);
-        jPanel5.setBounds(520, 130, 114, 121);
+        jPanel5.setBounds(520, 130, 130, 121);
 
         jPanel6.setBackground(new java.awt.Color(51, 102, 0));
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -360,7 +360,7 @@ public class FrmInicio extends javax.swing.JFrame {
         lblreserva2.setText("Pendientes");
 
         lblPendientes.setBackground(new java.awt.Color(51, 102, 0));
-        lblPendientes.setFont(new java.awt.Font("Segoe UI", 1, 60)); // NOI18N
+        lblPendientes.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lblPendientes.setForeground(new java.awt.Color(255, 255, 255));
         lblPendientes.setText("0");
         lblPendientes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 0)));
@@ -377,8 +377,8 @@ public class FrmInicio extends javax.swing.JFrame {
                         .addComponent(lblreserva2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(lblPendientes, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32))))
+                        .addComponent(lblPendientes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41))))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,10 +398,10 @@ public class FrmInicio extends javax.swing.JFrame {
 
         lblreserva3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblreserva3.setForeground(new java.awt.Color(255, 255, 255));
-        lblreserva3.setText("Ingresos al dia");
+        lblreserva3.setText("Ingresos Totales");
 
         lblIngresosDia.setBackground(new java.awt.Color(51, 102, 0));
-        lblIngresosDia.setFont(new java.awt.Font("Segoe UI", 1, 60)); // NOI18N
+        lblIngresosDia.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblIngresosDia.setForeground(new java.awt.Color(255, 255, 255));
         lblIngresosDia.setText("0");
         lblIngresosDia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 102, 0)));
@@ -416,7 +416,7 @@ public class FrmInicio extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblIngresosDia)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addGap(0, 73, Short.MAX_VALUE)
+                        .addGap(0, 58, Short.MAX_VALUE)
                         .addComponent(lblreserva3)
                         .addGap(18, 18, 18)))
                 .addContainerGap())

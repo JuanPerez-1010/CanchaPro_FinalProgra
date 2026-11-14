@@ -4,3 +4,8 @@ R002,Mauro Antonio - Salasar (CANCELADA),2026-11-12 12:00-13:00,1,140.00
 R003,Juan Antonio Perez - La bombonera (CONFIRMADA),2026-11-13 06:00-07:00,1,150.00
 R004,Daniel Melgar - La bombonera (CONFIRMADA),2026-11-13 08:00-10:00,1,371.00
 
+---REPORTE: 6. Cancha mas utilizada | GENERADO: 2026-11-13 22:44 ----
+K001,La bombonera,Acumulado general,4,1026.00
+K003,Salasar,Acumulado general,2,561.00
+K002,santiago,Acumulado general,1,426.00
+

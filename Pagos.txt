@@ -1,1 +1,4 @@
 P001,R001,2026-11-13 00:09,35.0,Efectivo,pago de cancha
+P002,R004,2026-11-13 21:50,171.0,Efectivo,intjuujnu
+P003,R003,2026-11-13 22:02,74.0,Efectivo,pago
+P004,R006,2026-11-13 22:35,176.0,Targeta,pago

@@ -1,1 +1,2 @@
 V001,2026-11-13 13:19,Pan con carne x5; Gatorade x2,70.0,Efectivo
+V002,2026-11-13 22:45,Pan con carne x5,50.0,Efectivo

@@ -109,7 +109,8 @@ public class FrmMenuPagos extends javax.swing.JFrame {
             Pagos p = arregloPagos[i];
             if (p != null) {
                 modelo.addRow(new Object[]{p.getCodigoPago(),p.getCodigoReserva(),p.getFechaHora(),"Q" + String.format(Locale.US, "%.2f", p.getMonto()),p.getMetodoPago(),p.getObservacion()});
-                }
+            mostrarResumenReserva();    
+            }
                }
              }
     
@@ -193,8 +194,8 @@ public class FrmMenuPagos extends javax.swing.JFrame {
             }
         ));
         JTable.setGridColor(new java.awt.Color(0, 0, 0));
-        JTable.setRowHeight(16);
-        JTable.setRowMargin(22);
+        JTable.setRowHeight(26);
+        JTable.setRowMargin(1);
         JTable.setSelectionBackground(new java.awt.Color(30, 80, 50));
         JTable.setSelectionForeground(new java.awt.Color(255, 255, 255));
         JTable.setShowHorizontalLines(true);

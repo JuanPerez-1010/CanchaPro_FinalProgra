@@ -1,3 +1,4 @@
-K001,La bombonera,Futbol 5,10 Jugadores,150.0,DISPONIBLE,06:00,21:00
-K002,santiago,Futbol 5,10 Jugadores,200.0,DISPONIBLE,08:00,21:00
-K003,Salasar,Futbol 5,10 Jugadores,125.0,DISPONIBLE,06:00,21:00
+K001,La bombonera,10 Jugadores,Futbol 5,150.0,DISPONIBLE,06:00,21:00
+K002,santiago,10 Jugadores,Futbol 5,200.0,DISPONIBLE,08:00,21:00
+K003,Salasar,10 Jugadores,Futbol 5,125.0,DISPONIBLE,06:00,21:00
+K004,El Monumental,14 Jugadores,Futbol 7,150.0,DISPONIBLE,07:00,22:00
