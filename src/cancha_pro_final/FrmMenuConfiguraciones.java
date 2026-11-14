@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 public class FrmMenuConfiguraciones extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmMenuConfiguraciones.class.getName());
-    String[] archivosSistema = {"clientes.csv", "canchas.csv","servicios.csv","tarifas.csv","reservas.csv","pagos.csv", "productos.csv", "ventas.csv","detalle_ventas.csv","Config.txt" }; 
+    String[] archivosSistema = {"Clientes.txt","Canchas.txt","Reservas.txt","Pagos.txt","Productos.txt","VentasTienda.txt","Reportes.txt","Config.txt" };    
     DefaultTableModel modeloTabla;
     /**
      * Creates new form FrmMenuConfiguraciones
