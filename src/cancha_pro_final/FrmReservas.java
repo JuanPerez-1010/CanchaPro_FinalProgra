@@ -9,6 +9,8 @@ package cancha_pro_final;
  * @author PERSONAL
  */
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.util.Locale;
 import javax.swing.JOptionPane;
@@ -35,7 +37,7 @@ public class FrmReservas extends javax.swing.JFrame {
         jTable1.getTableHeader().setBackground(new java.awt.Color(30, 80, 50));
         jTable1.getTableHeader().setForeground(java.awt.Color.WHITE);
         jTable1.getTableHeader().setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
-       this.setSize(1280, 670);
+        this.setSize(1280, 670);
         this.pack();
         setLocationRelativeTo(null);
         contadorClientes = Clientes.CargarArchivosClientes(arregloClientes);
@@ -56,17 +58,24 @@ public class FrmReservas extends javax.swing.JFrame {
         ComboBuscarReserva.addItem("Por Cliente");
         ComboBuscarReserva.addItem("Por Fecha");
 
-        txtFecha.setText(LocalDate.now().toString());
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        txtFecha.setText(LocalDate.now().format(formatoFecha));
         Txtcodigo.setText(Reserva.generarCodigo(arregloReservas, contadorReservas));
         Txtcodigo.setEditable(false);
         txtfin.setEditable(false);
         TxtTotalAdicional.setEditable(false);
-        ComboGuardarCambios.setEnabled(false); 
+        ComboGuardarCambios.setEnabled(false);
+        txtFecha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cargarHorariosDeCancha();
+                calcularExtrasYFin();
+            }
+        });
 
         cargarHorariosDeCancha();
         calcularExtrasYFin();
         actualizarTablaYContadores();
-  }
+    }
     //-------------------------------------------------------------------METODOOS
     private void cargarComboClientes() {
     comboclientes.removeAllItems();
@@ -105,27 +114,37 @@ public class FrmReservas extends javax.swing.JFrame {
         Canchas c = obtenerCanchaSeleccionada();
         ComboInicio.removeAllItems();
         ComboHoras.removeAllItems();
-
         ComboHoras.addItem("1");
         ComboHoras.addItem("2");
         ComboHoras.addItem("3");
         ComboHoras.addItem("4");
-
         if (c != null) {
             try {
-             int horaAbre = Integer.parseInt(c.getHoraApertura().trim().substring(0, 2));
-            int horaCierra = Integer.parseInt(c.getHoraCierre().trim().substring(0, 2));
-             for (int h = horaAbre; h < horaCierra; h++) {
-               if (h < 10) {
-                ComboInicio.addItem("0" + h + ":00");
-               } else {
-                  ComboInicio.addItem(h + ":00");
+                DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                LocalDate hoy = LocalDate.now();
+                LocalDate fechaElegida = LocalDate.parse(txtFecha.getText().trim(), formatoFecha);
+                if (fechaElegida.isBefore(hoy)) {
+                    return;
+                }
+
+                int horaAbre = Integer.parseInt(c.getHoraApertura().trim().substring(0, 2));
+                int horaCierra = Integer.parseInt(c.getHoraCierre().trim().substring(0, 2));
+                if (fechaElegida.equals(hoy)) {
+                    int horaActual = LocalTime.now().getHour();
+                    if (horaActual > horaAbre) {
+                        horaAbre = horaActual;
+                    }
+                }
+
+                for (int h = horaAbre; h < horaCierra; h++) {
+                    if (h < 10) {
+                        ComboInicio.addItem("0" + h + ":00");
+                    } else {
+                        ComboInicio.addItem(h + ":00");
                     }
                 }
             } catch (Exception e) {
-                ComboInicio.addItem("08:00");
-            }
-        }
+            } } 
     }
     private String obtenerTextoServicios() {
       String servicios = "";
@@ -213,10 +232,11 @@ public class FrmReservas extends javax.swing.JFrame {
         lblinicio1.setText("Pendientes: " + pend);  
         lblinicio2.setText("Canceladas: " + canc);
     }
-    private void limpiarFormulario() {
+        private void limpiarFormulario() {
         indiceEditar = -1;
         Txtcodigo.setText(Reserva.generarCodigo(arregloReservas, contadorReservas));
-        txtFecha.setText(LocalDate.now().toString());
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        txtFecha.setText(LocalDate.now().format(formatoFecha));
         checkBalon1.setSelected(false);
         checkchalecos.setSelected(false);
         checkIluminacion.setSelected(false);
@@ -225,11 +245,11 @@ public class FrmReservas extends javax.swing.JFrame {
         ComboEstado.setSelectedIndex(0);
         ButonAgregar.setEnabled(true);
         ComboGuardarCambios.setEnabled(false);
+        cargarHorariosDeCancha();
         jTable1.clearSelection();
         calcularExtrasYFin();
     }
-    
-
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -911,13 +931,23 @@ public class FrmReservas extends javax.swing.JFrame {
     }//GEN-LAST:event_TxtcodigoActionPerformed
 
     private void ComboGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboGuardarCambiosActionPerformed
-      if (indiceEditar == -1) return;
-
+     if (indiceEditar == -1) return;
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String fecha = txtFecha.getText().trim();
+        LocalDate fechaReserva;
         try {
-            LocalDate.parse(fecha);
+            fechaReserva = LocalDate.parse(fecha, formatoFecha);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Fecha inválida. Use el formato AAAA-MM-DD.");
+            JOptionPane.showMessageDialog(this, "Fecha invalida. Use el formato dd-MM-yyyy (ej. 14-11-2026).");
+            return;
+        }
+        LocalDate hoy = LocalDate.now();
+        if (fechaReserva.isBefore(hoy)) {
+            JOptionPane.showMessageDialog(this, "Error: Esa fecha ya paso. Solo puede reservar desde hoy (" + hoy.format(formatoFecha) + ") en adelante.");
+            return;
+        }
+        if (ComboInicio.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "No hay horarios disponibles para esta fecha.");
             return;
         }
         calcularExtrasYFin();
@@ -1020,12 +1050,22 @@ public class FrmReservas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Seleccione un cliente y una cancha.");
             return;
         }
-
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String fecha = txtFecha.getText().trim();
+        LocalDate fechaReserva;
         try {
-            LocalDate.parse(fecha);
+            fechaReserva = LocalDate.parse(fecha, formatoFecha);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Fecha inválida use el formato AAAA-MM-DD (ej. 2026-11-12).");
+            JOptionPane.showMessageDialog(this, "Fecha invalida. Use el formato dd-MM-yyyy (ej. 14-11-2026).");
+            return;
+        }
+        LocalDate hoy = LocalDate.now();
+        if (fechaReserva.isBefore(hoy)) {
+            JOptionPane.showMessageDialog(this, "Error: Esa fecha ya paso. Solo puede reservar desde hoy (" + hoy.format(formatoFecha) + ") en adelante.");
+            return;
+        }
+        if (ComboInicio.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "No hay horarios disponibles para esta fecha.");
             return;
         }
         calcularExtrasYFin();
@@ -1123,7 +1163,26 @@ public class FrmReservas extends javax.swing.JFrame {
     }//GEN-LAST:event_ButonBuscarRerservaActionPerformed
 
     private void ButonEditarReserva222ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButonEditarReserva222ActionPerformed
-       int fila = jTable1.getSelectedRow();
+   DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    LocalDate fechaReserva;
+
+    try {
+    fechaReserva = LocalDate.parse(txtFecha.getText().trim(), formatoFecha);
+    } catch (Exception e) {
+    JOptionPane.showMessageDialog(this, "Escriba una fecha valida con formato dd-MM-yyyy (ejemplo: 14-11-2026)");
+    return;
+    }
+    LocalDate hoy = LocalDate.now();
+    if (fechaReserva.isBefore(hoy)) {
+    JOptionPane.showMessageDialog(this, "Error: Esa fecha ya paso. Solo puede reservar desde hoy (" + hoy.format(formatoFecha) + ") en adelante.");
+    return;
+}
+
+if (combocanchas.getSelectedItem() == null) {
+    JOptionPane.showMessageDialog(this, "No hay horarios disponibles para hoy. Seleccione una fecha futura.");
+    return;
+}
+        int fila = jTable1.getSelectedRow();
         if (fila == -1) {
             JOptionPane.showMessageDialog(this, "Seleccione una reserva de la tabla para editar.");
             return;
