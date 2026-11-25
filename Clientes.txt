@@ -17,3 +17,4 @@ C017,Julio Santis de la fuente,santis@gmail.com,14569875,Si,04/11/2026
 C018,Luis cifuentes,,14569875,Si,04/11/2026
 C020,Emilia Reyes,emilia@gmail.com,14569875,No,11/11/2026
 C021,ASDFASDF,ASDF,582,No,13/11/2026
+C022,Miguel Lemus,lemus@gmail.com,14598758,No,18/11/2026

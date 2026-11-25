@@ -11,8 +11,7 @@ package cancha_pro_final;
 public class Cancha_Pro_Final {
 
     public static void main(String[] args) {
-          
-        
+   
         FrmInicio inicio = new FrmInicio ();
         inicio.setVisible(true);
         
